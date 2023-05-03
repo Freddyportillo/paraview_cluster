@@ -27,7 +27,9 @@ def run_postproc(output_path, ct):
     file_id = output_path[len(output_path)-14:]
     # get the material library
     materialLibrary1 = GetMaterialLibrary()
-
+############################################################################################
+#           MACH
+############################################################################################
     # Create a new 'Render View'
     renderView1 = CreateView('RenderView')
     renderView1.ViewSize = [1254, 643]
@@ -230,6 +232,8 @@ def run_postproc(output_path, ct):
     threshold1Display.PolarAxes = 'PolarAxesRepresentation'
     threshold1Display.SelectInputVectors = ['POINTS', 'velocity']
     threshold1Display.WriteLog = ''
+    threshold1Display.RescaleTransferFunctionToDataRange(False, True)
+
 
     # init the 'PiecewiseFunction' selected for 'ScaleTransferFunction'
     threshold1Display.ScaleTransferFunction.Points = [0.00041561559837389377, 0.0, 0.5, 0.0, 0.5638863265407889, 1.0, 0.5, 0.0]
@@ -382,6 +386,7 @@ def run_postproc(output_path, ct):
     threshold1Display.PolarAxes = 'PolarAxesRepresentation'
     threshold1Display.SelectInputVectors = ['POINTS', 'velocity']
     threshold1Display.WriteLog = ''
+    threshold1Display.RescaleTransferFunctionToDataRange(False, True)
     
     # init the 'PiecewiseFunction' selected for 'ScaleTransferFunction'
     threshold1Display.ScaleTransferFunction.Points = [0.00041561559837389377, 0.0, 0.5, 0.0, 0.5638863265407889, 1.0, 0.5, 0.0]
@@ -518,7 +523,7 @@ def run_postproc(output_path, ct):
     SetActiveSource(pNG2)
 
 ############################################################################################
-#           velocity magnitude
+#           velocity U
 ############################################################################################
 # Create a new 'Render View'
     renderView3 = CreateView('RenderView')
@@ -619,6 +624,7 @@ def run_postproc(output_path, ct):
     threshold1Display.PolarAxes = 'PolarAxesRepresentation'
     threshold1Display.SelectInputVectors = [None, '']
     threshold1Display.WriteLog = ''
+    threshold1Display.RescaleTransferFunctionToDataRange(False, True)
 
     # init the 'PiecewiseFunction' selected for 'ScaleTransferFunction'
     threshold1Display.ScaleTransferFunction.Points = [0.00041561559837389263, 0.0, 0.5, 0.0, 0.5638863265407886, 1.0, 0.5, 0.0]
@@ -853,6 +859,7 @@ def run_postproc(output_path, ct):
     threshold1Display.PolarAxes = 'PolarAxesRepresentation'
     threshold1Display.SelectInputVectors = [None, '']
     threshold1Display.WriteLog = ''
+    threshold1Display.RescaleTransferFunctionToDataRange(False, True)
 
     # init the 'PiecewiseFunction' selected for 'ScaleTransferFunction'
     threshold1Display.ScaleTransferFunction.Points = [0.00041561559837389263, 0.0, 0.5, 0.0, 0.5638863265407886, 1.0, 0.5, 0.0]
@@ -990,7 +997,9 @@ def run_postproc(output_path, ct):
     SetActiveSource(pNG4)
 
 
-
+############################################################################################
+#           TEMPERATURE
+############################################################################################
 
     # Create a new 'Render View'
     renderView5 = CreateView('RenderView')
@@ -1175,6 +1184,7 @@ def run_postproc(output_path, ct):
     threshold1Display.OpacityArrayName = ['POINTS', 'Mach']
     threshold1Display.SelectInputVectors = [None, '']
     threshold1Display.WriteLog = ''
+    threshold1Display.RescaleTransferFunctionToDataRange(False, True)
 
     # init the 'PiecewiseFunction' selected for 'ScaleTransferFunction'
     threshold1Display.ScaleTransferFunction.Points = [0.0018666807468164744, 0.0, 0.5, 0.0, 0.24960872123230704, 1.0, 0.5, 0.0]
@@ -1221,6 +1231,10 @@ def run_postproc(output_path, ct):
     # ----------------------------------------------------------------
     # restore active source
     SetActiveSource(pNG5)
+
+############################################################################################
+#         VORTMAG
+############################################################################################
 
     # Create a new 'Render View'
     renderView6 = CreateView('RenderView')
@@ -1402,6 +1416,7 @@ def run_postproc(output_path, ct):
     threshold1Display.OpacityArrayName = ['POINTS', 'Mach']
     threshold1Display.SelectInputVectors = [None, '']
     threshold1Display.WriteLog = ''
+    threshold1Display.RescaleTransferFunctionToDataRange(False, True)
 
     # init the 'PiecewiseFunction' selected for 'ScaleTransferFunction'
     threshold1Display.ScaleTransferFunction.Points = [0.0018666807468164744, 0.0, 0.5, 0.0, 0.24960872123230704, 1.0, 0.5, 0.0]
