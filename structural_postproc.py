@@ -196,8 +196,8 @@ def run_structural_postproc(output_path, node):
         cor =["darkgray","tab:blue","tab:red","black"]
         plt.figure(dpi=150)
 
-        print("Energia cinética = \n", kinetic_energy)
-        print("Frequência = \n", frequency)
+        # print("Energia cinética = \n", kinetic_energy)
+        # print("Frequência = \n", frequency)
 
         for i in range(len(ept_kinetic)):
 
@@ -252,3 +252,5 @@ def run_structural_postproc(output_path, node):
     plot_espectro(uf,vf,wf,tf)
     # plot_espectro(vf,vf,vf,tf)
     # plot_espectro(wf,wf,wf,tf)
+    print('The structural probe was readed and treated succesfully')
+    print('END OF POST-PROCESSING ROUTINE')

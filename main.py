@@ -17,3 +17,5 @@ node = sys.argv[3]
 output_path = getOutputPath(cfg_path)
 run_postproc(output_path, ct)
 run_structural_postproc(output_path, node)
+
+print('****** END OF POST-PROCESSING ROUTINE ******')
