@@ -1470,6 +1470,146 @@ def run_postproc(output_path, ct):
     # restore active source
     SetActiveSource(pNG6)
 
+
+    # Create a new 'Render View'
+    renderView7 = CreateView('RenderView')
+    renderView7.ViewSize = [1254, 643]
+    renderView7.AxesGrid = 'GridAxes3DActor'
+    renderView7.OrientationAxesVisibility = 0
+    renderView7.CenterOfRotation = [13.5, 6.0, 4.944999933242798]
+    renderView7.StereoType = 'Crystal Eyes'
+    renderView7.CameraPosition = [13.5, 6.0, 27.436913333807976]
+    renderView7.CameraFocalPoint = [13.5, 6.0, -24.400106077512277]
+    renderView7.CameraFocalDisk = 1.0
+    renderView7.CameraParallelScale = 13.41640786499874
+    renderView7.BackEnd = 'OSPRay raycaster'
+    renderView7.OSPRayMaterialLibrary = materialLibrary1
+
+    SetActiveView(None)
+
+    # ----------------------------------------------------------------
+    # setup view layouts
+    # ----------------------------------------------------------------
+
+    # create new layout object 'Layout #1'
+    layout1 = CreateLayout(name='Layout #1')
+    layout1.AssignView(0, renderView7)
+    layout1.SetSize(1254, 643)
+
+    # ----------------------------------------------------------------
+    # restore active view
+    SetActiveView(renderView7)
+    # ----------------------------------------------------------------
+
+    # create a new 'Slice'
+    slice1 = Slice(registrationName='Slice1', Input=calculator1)
+    slice1.SliceType = 'Plane'
+    slice1.HyperTreeGridSlicer = 'Plane'
+    slice1.Triangulatetheslice = 0
+    slice1.SliceOffsetValues = [0.0]
+
+    # init the 'Plane' selected for 'SliceType'
+    slice1.SliceType.Origin = [13.500000000000005, 6.000000000000005, 4.945]
+    slice1.SliceType.Normal = [0.0, 0.0, 1.0]
+
+    # init the 'Plane' selected for 'HyperTreeGridSlicer'
+    slice1.HyperTreeGridSlicer.Origin = [13.500000000000005, 6.000000000000005, 5.099999999999999]
+
+    # ----------------------------------------------------------------
+    # setup the visualization in view 'renderView7'
+    # ----------------------------------------------------------------
+
+    # show data from slice1
+    slice1Display = Show(slice1, renderView7, 'GeometryRepresentation')
+
+    # get 2D transfer function for 'velocity'
+    velocityTF2D = GetTransferFunction2D('velocity')
+
+    # get color transfer function/color map for 'velocity'
+    velocityLUT = GetColorTransferFunction('velocity')
+    velocityLUT.TransferFunction2D = velocityTF2D
+    velocityLUT.RGBPoints = [0.015658476057405522, 0.231373, 0.298039, 0.752941, 167.89742211881122, 0.865003, 0.865003, 0.865003, 335.77918576156503, 0.705882, 0.0156863, 0.14902]
+    velocityLUT.ScalarRangeInitialized = 1.0
+
+    # trace defaults for the display properties.
+    slice1Display.Representation = 'Surface'
+    slice1Display.ColorArrayName = ['POINTS', 'velocity']
+    slice1Display.LookupTable = velocityLUT
+    slice1Display.SelectTCoordArray = 'None'
+    slice1Display.SelectNormalArray = 'None'
+    slice1Display.SelectTangentArray = 'None'
+    slice1Display.OSPRayScaleArray = 'Mach'
+    slice1Display.OSPRayScaleFunction = 'PiecewiseFunction'
+    slice1Display.SelectOrientationVectors = 'velocity'
+    slice1Display.ScaleFactor = 2.4000000000000012
+    slice1Display.SelectScaleArray = 'Mach'
+    slice1Display.GlyphType = 'Arrow'
+    slice1Display.GlyphTableIndexArray = 'Mach'
+    slice1Display.GaussianRadius = 0.12000000000000005
+    slice1Display.SetScaleArray = ['POINTS', 'Mach']
+    slice1Display.ScaleTransferFunction = 'PiecewiseFunction'
+    slice1Display.OpacityArray = ['POINTS', 'Mach']
+    slice1Display.OpacityTransferFunction = 'PiecewiseFunction'
+    slice1Display.DataAxesGrid = 'GridAxesRepresentation'
+    slice1Display.PolarAxes = 'PolarAxesRepresentation'
+    slice1Display.SelectInputVectors = ['POINTS', 'velocity']
+    slice1Display.WriteLog = ''
+    slice1Display.RescaleTransferFunctionToDataRange(False, True)
+
+
+    # init the 'PiecewiseFunction' selected for 'ScaleTransferFunction'
+    slice1Display.ScaleTransferFunction.Points = [-0.0007564060353854335, 0.0, 0.5, 0.0, 0.13228073098689977, 1.0, 0.5, 0.0]
+
+    # init the 'PiecewiseFunction' selected for 'OpacityTransferFunction'
+    slice1Display.OpacityTransferFunction.Points = [-0.0007564060353854335, 0.0, 0.5, 0.0, 0.13228073098689977, 1.0, 0.5, 0.0]
+
+    # setup the color legend parameters for each legend in this view
+
+    # get color legend/bar for velocityLUT in view renderView7
+    velocityLUTColorBar = GetScalarBar(velocityLUT, renderView7)
+    velocityLUTColorBar.Orientation = 'Horizontal'
+    velocityLUTColorBar.WindowLocation = 'Any Location'
+    velocityLUTColorBar.Position = [0.32, 0.12]
+    velocityLUTColorBar.Title = 'Magnitude da velocidade [m/s]'
+    velocityLUTColorBar.ComponentTitle = 'Magnitude'
+    velocityLUTColorBar.TitleColor = [0.0, 0.0, 0.0]
+    velocityLUTColorBar.TitleFontSize = 20
+    velocityLUTColorBar.LabelColor = [0.0, 0.0, 0.0]
+    velocityLUTColorBar.LabelFontSize = 18
+    velocityLUTColorBar.ScalarBarLength = 0.33000000000000035
+    velocityLUTColorBar.RangeLabelFormat = '%-#6.1f'
+
+    # set color bar visibility
+    velocityLUTColorBar.Visibility = 1
+
+    # show color legend
+    slice1Display.SetScalarBarVisibility(renderView7, True)
+
+    # ----------------------------------------------------------------
+    # setup color maps and opacity mapes used in the visualization
+    # note: the Get..() functions create a new object, if needed
+    # ----------------------------------------------------------------
+
+    # get opacity transfer function/opacity map for 'velocity'
+    velocityPWF = GetOpacityTransferFunction('velocity')
+    velocityPWF.Points = [0.015658476057405522, 0.0, 0.5, 0.0, 335.77918576156503, 1.0, 0.5, 0.0]
+    velocityPWF.ScalarRangeInitialized = 1
+
+    # create extractor
+    pNG7 = CreateExtractor('PNG', renderView7, registrationName='PNG7')
+    # trace defaults for the extractor.
+    pNG7.Trigger = 'TimeValue'
+
+    # init the 'PNG' selected for 'Writer'
+    pNG7.Writer.FileName = 'velmag_'+file_id+'.png'
+    pNG7.Writer.ImageResolution = [1254, 643]
+    pNG7.Writer.TransparentBackground = 1
+    pNG7.Writer.Format = 'PNG'
+
+    # ----------------------------------------------------------------
+    # restore active source
+    SetActiveSource(pNG7)
+
     # Catalyst options
     from paraview import catalyst
 
