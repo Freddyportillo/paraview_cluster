@@ -180,7 +180,7 @@ def run_structural_postproc(output_path, node):
         font.set_family('serif')
 
         N = len(t)
-        dt = t[1]-t[0]
+        dt = t[101]-t[100]
         freq_sampling = 1/dt
         fstep = freq_sampling/N
         frq = np.linspace(0, (N-1)*fstep, N) 
