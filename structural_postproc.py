@@ -82,9 +82,9 @@ def run_structural_postproc(output_path, node):
             yf.append(y[0,i])
             zf.append(z[0,i])
 
-    xf -= x[0,0]
-    yf -= y[0,0]
-    zf -= z[0,0]
+    # xf -= x[0,0]
+    # yf -= y[0,0]
+    # zf -= z[0,0]
 
 
     # PLOT X DISPLACMENT 
@@ -161,67 +161,11 @@ def run_structural_postproc(output_path, node):
 
     ###########################################################################
     ###########################################################################
+    ###########################################################################
 
-    ####################################################################
-    # PLOT SPECTRA
-    ####################################################################
-    def plot_espectro(u,v,w,t):
+    def Fourier_transform(t,x,y,z):
         """
-        Plota a densidade espectral da energia cinética turbulenta.
-        """
-
-        font = FontProperties()
-        font.set_family('serif')
-
-        x1R = 1
-        x2R = 10000
-        xR = np.arange(x1R,x2R,10)
-        yR = np.exp((-5.0/3.0)*np.log(xR))*1000000000
-
-        dir = [""]
-
-        ept_kinetic = []
-
-        kinetic_energy =[]
-        frequency = []
-
-        ept = Fourier_transform_ke(t,u,v,w)
-        ept_kinetic.append(ept)
-
-        kinetic_energy1,  frequency1 = Fourier_transform_ke(t,u,v,w)
-        kinetic_energy.append(kinetic_energy1)
-        frequency.append(frequency1)    
-
-
-        cor =["darkgray","tab:blue","tab:red","black"]
-        plt.figure(dpi=150)
-
-        # print("Energia cinética = \n", kinetic_energy)
-        # print("Frequência = \n", frequency)
-
-        for i in range(len(ept_kinetic)):
-
-            plt.xlabel('Frequency [Hz]', fontsize=19, fontproperties=font)
-            plt.ylabel('Amplitude [m]', fontsize=19, fontproperties=font)
-            plt.plot(frequency[i],kinetic_energy[i],color='red',linewidth=0.8)
-            # p_ret  = plt.loglog(xR,yR,'--',color='black',linewidth=1.5, label='$m = -5/3$')
-
-        ax= plt.gca()	
-        ax.set_yscale('linear')
-        ax.set_xlim([0,500])
-        # ax.set_ylim([0.00001,0.01])	
-        # ax.legend(title='Coeficiente Angular')
-        plt.title('FFT')	
-        plt.grid()
-        #plt.savefig('Espectro.png', format='png', dpi=350)
-        plt.savefig(path+'/FFT_'+node_id+'.png')
-
-    ####################################################################
-    # FOURIER TRANSFORM
-    ####################################################################
-    def Fourier_transform_ke(t,u,v,w):
-        """
-        Calcula a transformada de Fourier da energia cinética turbulenta.
+         Calcula a transformada de Fourier da energia cinética turbulenta.
         INPUT:
         - ul = componente x da flutuação da velocidade;
         - vl = componente y da flutuação da velocidade;
@@ -231,26 +175,50 @@ def run_structural_postproc(output_path, node):
         OUTPUT:
         Retorna os valores da energia cinética turbulenta e a frequência.
         """
-        # Calculando as flutações das componentes da velocidade
-        ul = u - np.mean(u)
-        vl = v - np.mean(v)
-        wl = w - np.mean(w)
 
-        Enel = (ul * ul + vl * vl + wl * wl)/2
+        font = FontProperties()
+        font.set_family('serif')
 
-        yl = Enel
-        nl = len(yl)
-        kl = np.arange(nl)
-        frql = kl
-        frql = frql[range(nl//2)]
-        Yl1 = np.fft.fft(yl)
-        Yl = np.sqrt(Yl1.real ** 2 + Yl1.imag ** 2)
-        Yl = Yl[range(nl//2)]
-        return Yl, frql
-    ###########################################################################
-    ###########################################################################
-    plot_espectro(uf,vf,wf,tf)
-    # plot_espectro(vf,vf,vf,tf)
-    # plot_espectro(wf,wf,wf,tf)
+        N = len(t)
+        dt = t[1]-t[0]
+        freq_sampling = 1/dt
+        fstep = freq_sampling/N
+        frq = np.linspace(0, (N-1)*fstep, N) 
+
+        X = np.fft.fft(x)
+        X_mag = np.abs(X)/N
+
+        Y = np.fft.fft(y)
+        Y_mag = np.abs(Y)/N
+
+        Z = np.fft.fft(z)
+        Z_mag = np.abs(Z)/N
+
+        f_plot = frq[0:int(N/2+1)]
+        X_mag_plot = 2*X_mag[0:int(N/2+1)]
+        Y_mag_plot = 2*Y_mag[0:int(N/2+1)]
+        Z_mag_plot = 2*Z_mag[0:int(N/2+1)]
+
+        plt.figure(dpi=150)
+
+        plt.xlabel('Frequency [Hz]', fontsize=19, fontproperties=font)
+        plt.ylabel('Amplitude [m]', fontsize=19, fontproperties=font)
+        plt.plot(f_plot,X_mag_plot,color='black',linewidth=0.8, label = 'u')
+        plt.plot(f_plot,Y_mag_plot,color='blue',linewidth=0.8, label = 'v')
+        plt.plot(f_plot,Z_mag_plot,color='red',linewidth=0.8, label = 'w')
+        plt.legend(loc='best')
+
+        ax= plt.gca()	
+        ax.set_yscale('log')
+        ax.set_xlim([0,350])
+        # ax.set_ylim([-0.0001,0.001])	
+        plt.title('FFT')	
+        plt.grid()
+
+        plt.savefig(path+'/FFT_'+node_id+'.png')
+
+###########################################################################
+    Fourier_transform(tf,xf,yf,zf)
+    
     print('The structural probe was readed and treated succesfully')
     print('END OF POST-PROCESSING ROUTINE')
