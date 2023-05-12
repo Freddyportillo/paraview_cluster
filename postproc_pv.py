@@ -6,25 +6,18 @@ import paraview
 from paraview.simple import *
 import os
 
-def formatCT(ct):
-    max = 9
-    if(len(ct) == max):
-        return ct
-    ct_id = ""
-    for i in range(0,(max-len(ct))):
-        ct_id = ct_id + "0"
-    ct_id = ct_id + ct
-    return ct_id
 
-
-def run_postproc(output_path, ct):
+def run_postproc(output_path, result_path, ct):
     #### disable automatic camera reset on 'Show'
     paraview.simple._DisableFirstRenderCameraReset()
 
     # ----------------------------------------------------------------
     # setup views used in the visualization
     # ----------------------------------------------------------------
-    file_id = output_path[len(output_path)-14:]
+    # file_id = '50m_40s' #output_path[len(output_path)-14:]
+    splt = output_path.split('/')
+    file_id = splt[len(splt)-2]+'-'+splt[len(splt)-1]
+    
     # get the material library
     materialLibrary1 = GetMaterialLibrary()
 ############################################################################################
@@ -66,10 +59,11 @@ def run_postproc(output_path, ct):
 
 
     # create a new 'VisItChomboReader'
-    f_name = output_path+'/ns_output_ct.'+formatCT(ct)+'.hdf5'
-    if not os.path.isfile(f_name):
-        print("Can't find HDF5 file: "+f_name)
-        exit(1)
+    # f_name = output_path+'/ns_output_ct.'+formatCT(ct)+'.hdf5'
+    # if not os.path.isfile(f_name):
+    #     print("Can't find HDF5 file: "+f_name)
+    #     exit(1)
+    f_name = output_path+'/'+ct
 
     ns_output_ct = VisItChomboReader(registrationName='ns_output_ct.*', FileName=[f_name])
     ns_output_ct.MeshStatus = ['Mesh']
@@ -284,7 +278,7 @@ def run_postproc(output_path, ct):
     pNG1.Trigger = 'TimeStep'
 
     # init the 'PNG' selected for 'Writer'
-    pNG1.Writer.FileName = 'mach_'+file_id+'_'+formatCT(ct)+'.png'
+    pNG1.Writer.FileName = 'mach_'+file_id+'.png'
     pNG1.Writer.ImageResolution = [1254, 643]
     pNG1.Writer.TransparentBackground = 1
     pNG1.Writer.Format = 'PNG'
@@ -513,7 +507,7 @@ def run_postproc(output_path, ct):
     pNG2.Trigger = 'TimeStep'
     
     # init the 'PNG' selected for 'Writer'
-    pNG2.Writer.FileName = 'pressure_'+file_id+'_'+formatCT(ct)+'.png'
+    pNG2.Writer.FileName = 'pressure_'+file_id+'.png'
     pNG2.Writer.ImageResolution = [1254, 643]
     pNG2.Writer.TransparentBackground = 1
     pNG2.Writer.Format = 'PNG'
@@ -752,7 +746,7 @@ def run_postproc(output_path, ct):
     pNG3.Trigger = 'TimeValue'
 
     # init the 'PNG' selected for 'Writer'
-    pNG3.Writer.FileName = 'u_vel_'+file_id+'_'+formatCT(ct)+'.png'
+    pNG3.Writer.FileName = 'u_vel_'+file_id+'.png'
     pNG3.Writer.ImageResolution = [1254, 643]
     pNG3.Writer.TransparentBackground = 1
     pNG3.Writer.Format = 'PNG'
@@ -987,7 +981,7 @@ def run_postproc(output_path, ct):
     pNG4.Trigger = 'TimeValue'
 
     # init the 'PNG' selected for 'Writer'
-    pNG4.Writer.FileName = 'v_vel_'+file_id+'_'+formatCT(ct)+'.png'
+    pNG4.Writer.FileName = 'v_vel_'+file_id+'.png'
     pNG4.Writer.ImageResolution = [1254, 643]
     pNG4.Writer.TransparentBackground = 1
     pNG4.Writer.Format = 'PNG'
@@ -1223,7 +1217,7 @@ def run_postproc(output_path, ct):
     pNG5.Trigger = 'TimeValue'
 
     # init the 'PNG' selected for 'Writer'
-    pNG5.Writer.FileName = 'temperature_'+file_id+'_'+formatCT(ct)+'.png'
+    pNG5.Writer.FileName = 'temperature_'+file_id+'.png'
     pNG5.Writer.ImageResolution = [1254, 643]
     pNG5.Writer.TransparentBackground = 1
     pNG5.Writer.Format = 'PNG'
@@ -1461,7 +1455,7 @@ def run_postproc(output_path, ct):
     pNG6.Trigger = 'TimeValue'
 
     # init the 'PNG' selected for 'Writer'
-    pNG6.Writer.FileName = 'vortmag_'+file_id+'_'+formatCT(ct)+'.png'
+    pNG6.Writer.FileName = 'vortmag_'+file_id+'.png'
     pNG6.Writer.ImageResolution = [1254, 643]
     pNG6.Writer.TransparentBackground = 1
     pNG6.Writer.Format = 'PNG'
@@ -1601,7 +1595,7 @@ def run_postproc(output_path, ct):
     pNG7.Trigger = 'TimeValue'
 
     # init the 'PNG' selected for 'Writer'
-    pNG7.Writer.FileName = 'velmag_'+file_id+'_'+formatCT(ct)+'.png'
+    pNG7.Writer.FileName = 'velmag_'+file_id+'.png'
     pNG7.Writer.ImageResolution = [1254, 643]
     pNG7.Writer.TransparentBackground = 1
     pNG7.Writer.Format = 'PNG'
@@ -1613,15 +1607,15 @@ def run_postproc(output_path, ct):
     # Catalyst options
     from paraview import catalyst
 
-    directory = 'paraview_'+ct
+    directory = 'paraview_'+file_id+'_ct'+ct
     path = os.path.join(output_path,directory)
     os.makedirs(path,exist_ok = True)
-    print(path)
     options = catalyst.Options()
     options.ExtractsOutputDirectory = path
     options.GlobalTrigger = 'TimeValue'
     options.CatalystLiveTrigger = 'TimeStep'
 
+    print('PARAVIEW OUTPUT PATH: ', path)
     # init the 'TimeValue' selected for 'GlobalTrigger'
     # options.GlobalTrigger.Length = 1.0
     SaveExtractsUsingCatalystOptions(options)

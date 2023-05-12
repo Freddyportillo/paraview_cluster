@@ -8,25 +8,14 @@ import os
 from matplotlib.font_manager import FontProperties
 
 
-def run_structural_postproc(output_path, node):
-    directory = 'str_'+node
-    path = os.path.join(output_path,directory)
-    os.makedirs(path,exist_ok = True)
-
-    if len(node)==1:
-        node_id = '00000'+ node
-    elif len(node)==2: 
-        node_id = '0000'+ node
-    elif len(node)==3: 
-        node_id = '000'+ node
-    elif len(node)==4: 
-        node_id = '00'+ node
-    elif len(node)==5: 
-        node_id = '0'+ node
-    elif len(node)==6: 
-        node_id = node
-
-    fn = np.loadtxt(fname=output_path+'/probes_fsi/str_001_node'+node_id+'.dat', skiprows=2)
+def run_structural_postproc(output_path, result_path, node):
+    # directory = 'str_'+node
+    # # path = os.path.join(output_path,directory)
+    # # os.makedirs(path,exist_ok = True)
+    path = result_path
+    node_id = node['id']
+    print(node['file']); exit()
+    fn = np.loadtxt(fname=output_path+'/probes_fsi/'+node['file'], skiprows=2)
 
     ctj = 0; tj = 1; i = 2; j = 3; k = 4; uj = 5; vj = 6; wj = 7 #id's into .dat file
 
