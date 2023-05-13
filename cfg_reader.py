@@ -64,6 +64,7 @@ def getCT(output_path, ct_config):
         return files[0]
 
 def getNode(output_path, node_config):
+    print(node_config)
     out_path = output_path+'/probes_fsi'
     if len(node_config) != 0:
         f_name = out_path+'/str_001_node'+formatCounter(node_config, 6)+'.dat'

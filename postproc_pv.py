@@ -1608,7 +1608,8 @@ def run_postproc(output_path, result_path, ct):
     from paraview import catalyst
 
     directory = 'paraview_'+file_id+'_ct'+ct
-    path = os.path.join(output_path,directory)
+    # path = os.path.join(output_path,directory)
+    path = result_path
     os.makedirs(path,exist_ok = True)
     options = catalyst.Options()
     options.ExtractsOutputDirectory = path

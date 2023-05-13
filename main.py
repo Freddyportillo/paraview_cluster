@@ -63,14 +63,16 @@ def validateArgs():
     return args
 
 def main():
+    nodes2read = np.loadtxt(fname='nodes2read.dat').astype(int)
     args = validateArgs()
     output_paths = getOutputPath(args['mfsim_cfg_path']['value'])
     checkResultPath(args['results_path']['value'])
     for output_path in output_paths:
         result = generateResultPathForOutput(output_path, args['results_path']['value'])
         ct = getCT(output_path, args['ct']['value'])
-        node = getNode(output_path, args['node']['value'])
-        # run_postproc(output_path, result, ct)
+        node = getNode(output_path, args['node']['value']) # nodes2read[0]); print(node) # args['node']['value'])
+        run_postproc(output_path, result, ct)
+        # for node in nodes2read:
         run_structural_postproc(output_path, result, node)
 
 if __name__ == '__main__':
