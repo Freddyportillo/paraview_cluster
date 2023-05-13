@@ -12,8 +12,9 @@ def run_structural_postproc(output_path, result_path, node):
     # directory = 'str_'+node
     # # path = os.path.join(output_path,directory)
     # # os.makedirs(path,exist_ok = True)
-    path = result_path
     node_id = node['id']
+    path = result_path+'/str_results/'+node_id
+    os.makedirs(path,exist_ok = True)
 
     fn = np.loadtxt(fname=output_path+'/probes_fsi/'+node['file'], skiprows=2)
 

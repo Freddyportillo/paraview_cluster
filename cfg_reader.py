@@ -63,15 +63,14 @@ def getCT(output_path, ct_config):
         files.sort(key=lambda f: int(re.sub('\D', '', f)), reverse=True)
         return files[0]
 
-def getNode(output_path, node_config):
-    print(node_config)
+def getNode(output_path, node_config,id_node):
     out_path = output_path+'/probes_fsi'
     if len(node_config) != 0:
-        f_name = out_path+'/str_001_node'+formatCounter(node_config, 6)+'.dat'
+        f_name = out_path+'/str_001_node'+formatCounter(id_node, 6)+'.dat'
         if not os.path.isfile(f_name):
             print("Can't find NODE file: "+f_name)
             exit(1)
-        return { "file": 'str_001_node'+formatCounter(node_config, 6)+'.dat', "id": formatCounter(node_config, 6) }
+        return { "file": 'str_001_node'+formatCounter(id_node, 6)+'.dat', "id": formatCounter(id_node, 6) }
     else:
         files = [f for f in os.listdir(out_path) if re.match(r'str_001_node.*\.dat', f)]
         if len(files) == 0:
