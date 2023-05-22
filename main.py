@@ -79,7 +79,7 @@ def main():
         for i in range(len(nodes2read)):
             node = getNode(output_path, nodes2read[i],id_nodes[i])
             print('node: ', node)
-            run_structural_postproc(output_path, result, node)
+            # run_structural_postproc(output_path, result, node)
 
 if __name__ == '__main__':
     main()
