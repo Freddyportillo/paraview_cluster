@@ -1,6 +1,7 @@
 #!./paraview-5.11.1/bin/pvpython
 import sys
-from postproc_pv import *
+import subprocess
+import json
 from structural_postproc import *
 from cfg_reader import *
 
@@ -10,12 +11,18 @@ Possible parameters:
                         Path to where MFSim's cfg files can be finded or path to MFSim cfg file
                     \033[92mresults_path\033[0m=path                                                \033[91m[REQUIRED]\033[0m
                         Path to where results should be generated
+                    \033[92mclear_results\033[0m=false|true                                         \033[93m[OPTIONAL]\033[0m
+                        Clear results_path before generating new results 
+                        Default: false
                     \033[92mct\033[0m=CT_NUMBER                                                     \033[93m[OPTIONAL]\033[0m
                         CT number from which results should be extracted. 
                         Default: last CT finded on output path
                     \033[92mnode\033[0m=STR_NODE                                                    \033[93m[OPTIONAL]\033[0m
                         Structural node from which results should be extracted. 
                         Default: last node finded on output path
+                    \033[92mproc_all\033[0m=false|true                                              \033[93m[OPTIONAL]\033[0m
+                        Process all CT's and structural nodes 
+                        Default: false
                     
 \033[94m** Examples **\033[0m
 
@@ -25,8 +32,14 @@ Possible parameters:
 2 - Extract results from CT 100 and Node 1 for all cases in /home/USER/cases and write results in /home/USER/cases-result
     ./main.py mfsim_cfg_path=/home/USER/cases results_path=/home/USER/cases-result ct=100 node=1
 
-3 - Extract results from last CT and Node for case in /home/USER/cases/case1.cfg and write results in /home/USER/case1-result
+3 - Extract results from all CT's and Nodes for all cases in /home/USER/cases and write results in /home/USER/cases-result
+    ./main.py mfsim_cfg_path=/home/USER/cases results_path=/home/USER/cases-result proc_all=true
+
+4 - Extract results from last CT and Node for case in /home/USER/cases/case1.cfg and write results in /home/USER/case1-result
     ./main.py mfsim_cfg_path=/home/USER/cases/case1.cfg results_path=/home/USER/case1-result
+
+5 - Extract results from all CT's and Nodes for case in /home/USER/cases/case1.cfg and write results in /home/USER/case1-result
+    ./main.py mfsim_cfg_path=/home/USER/cases/case1.cfg results_path=/home/USER/case1-result proc_all=true
 
 """
 
@@ -38,8 +51,10 @@ def validateArgs():
     args = {
         "mfsim_cfg_path": { "type": "str", "value": "", "setted": False, "required": True },
         "results_path": { "type": "str", "value": "", "setted": False, "required": True },
+        "clear_results": { "type": "bool", "value": False, "setted": False, "required": False },
         "ct": { "type": "str", "value": "", "setted": False, "required": False },
-        "node": { "type": "str", "value": "", "setted": False, "required": False }
+        "node": { "type": "str", "value": "", "setted": False, "required": False },
+        "proc_all": { "type": "bool", "value": False, "setted": False, "required": False }
     }
     for arg in sys.argv:
         arg_data = arg.split('=')
@@ -70,16 +85,25 @@ def main():
         id_nodes.append(splt[1])
     args = validateArgs()
     output_paths = getOutputPath(args['mfsim_cfg_path']['value'])
-    checkResultPath(args['results_path']['value'])
+    checkResultPath(args['results_path']['value'], args['clear_results']['value'])
+    counter = 0
+    outputs = len(output_paths)
     for output_path in output_paths:
+        print("\n\n\033[92m*****************************************************************\033[0m")
+        print("\033[92mProcessing output: \033[0m"+output_path)
         result = generateResultPathForOutput(output_path, args['results_path']['value'])
-        ct = getCT(output_path, args['ct']['value'])
+        cts = getCT(output_path, args['ct']['value'], args['proc_all']['value'])
         # node = getNode(output_path, args['node']['value']) # nodes2read[0]); print(node) # args['node']['value'])
-        run_postproc(output_path, result, ct)
+        for ct in cts:
+            print("\n\033[94m CT: \033[0m"+ct['id'])
+            result_ct = generateCtResultDir(result,ct['id'])
+            subprocess.run(['./postproc_pv.py', output_path, result_ct, json.dumps(ct)])
         for i in range(len(nodes2read)):
             node = getNode(output_path, nodes2read[i],id_nodes[i])
             print('node: ', node)
-            # run_structural_postproc(output_path, result, node)
+            run_structural_postproc(output_path, result, node)
+        counter = counter + 1
+        print("\n\n\033[92m\t\tProcessed: \033[0m"+str(counter)+"/"+str(outputs)+" outputs\n")
 
 if __name__ == '__main__':
     main()

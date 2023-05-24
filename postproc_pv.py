@@ -2,10 +2,10 @@
 # script-version: 2.0
 # Catalyst state generated using paraview version 5.9.1
 #### import the simple module from the paraview
-import paraview
+import sys
+import json
 from paraview.simple import *
-import os
-
+from paraview import catalyst
 
 def run_postproc(output_path, result_path, ct):
     #### disable automatic camera reset on 'Show'
@@ -17,9 +17,7 @@ def run_postproc(output_path, result_path, ct):
     # file_id = '50m_40s' #output_path[len(output_path)-14:]
     splt = output_path.split('/')
     file_id = splt[len(splt)-2]+'-'+splt[len(splt)-1]
-    splt2 = ct.split('.')
-    ct_id = splt2[len(splt2)-2]
-    
+    ct_id = ct['id']
     # get the material library
     materialLibrary1 = GetMaterialLibrary()
 ############################################################################################
@@ -65,7 +63,7 @@ def run_postproc(output_path, result_path, ct):
     # if not os.path.isfile(f_name):
     #     print("Can't find HDF5 file: "+f_name)
     #     exit(1)
-    f_name = output_path+'/'+ct
+    f_name = output_path+'/'+ct['file']
 
     ns_output_ct = VisItChomboReader(registrationName='ns_output_ct.*', FileName=[f_name])
     ns_output_ct.MeshStatus = ['Mesh']
@@ -1607,19 +1605,25 @@ def run_postproc(output_path, result_path, ct):
     SetActiveSource(pNG7)
 
     # Catalyst options
-    from paraview import catalyst
+    # from paraview import catalyst
 
-    directory = 'paraview_'+file_id+'_ct'+ct
-    # path = os.path.join(output_path,directory)
-    path = result_path+'/'+ct_id
-    os.makedirs(path,exist_ok = True)
+    # directory = 'paraview_'+file_id+'_ct'+ct_id
+    # # path = os.path.join(output_path,directory)
+    # path = result_path+'/'+ct_id
+    # os.makedirs(path,exist_ok = True)
     options = catalyst.Options()
-    options.ExtractsOutputDirectory = path
+    options.ExtractsOutputDirectory = result_path
     options.GlobalTrigger = 'TimeValue'
     options.CatalystLiveTrigger = 'TimeStep'
 
-    print('PARAVIEW OUTPUT PATH: ', path)
+    print('PARAVIEW OUTPUT PATH: ', result_path)
     # init the 'TimeValue' selected for 'GlobalTrigger'
     # options.GlobalTrigger.Length = 1.0
     SaveExtractsUsingCatalystOptions(options)
 
+
+if __name__ == '__main__':
+    output_path = sys.argv[1]
+    result_path = sys.argv[2]
+    ct = json.loads(sys.argv[3])
+    run_postproc(output_path, result_path, ct)

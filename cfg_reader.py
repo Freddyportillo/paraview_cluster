@@ -1,5 +1,6 @@
 #!./paraview-5.11.1/bin/pvpython
 import os 
+import shutil
 import re
 import glob
 
@@ -27,9 +28,34 @@ def getOutputPath(cfg_path):
                     outputs.append(r.group(1))
     return outputs
 
-def checkResultPath(result_path):
+def clearFolder(folder):
+    for filename in os.listdir(folder):
+        file_path = os.path.join(folder, filename)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except Exception as e:
+            print('Failed to delete %s. Reason: %s' % (file_path, e))
+
+def checkResultPath(result_path, clear = False):
     if not os.path.exists(result_path):
         os.makedirs(result_path)
+    elif clear:
+        clearFolder(result_path)
+
+def generateCtResultDir(result_path, ct_id):
+    path = result_path + "/cts/"+ct_id
+    if not os.path.exists(path):
+        os.makedirs(path)
+    return path
+
+def generateNodeResultDir(result_path, ct_id):
+    path = result_path + "/nodes/"+ct_id
+    if not os.path.exists(path):
+        os.makedirs(path)
+    return path
 
 def generateResultPathForOutput(output_path, result_path):
     splt = output_path.split('/')
@@ -48,20 +74,28 @@ def formatCounter(ct, max = 9):
     ct_id = ct_id + ct
     return ct_id
 
-def getCT(output_path, ct_config):
+def getCT(output_path, ct_config, all = False):
     if len(ct_config) != 0:
-        f_name = output_path+'/ns_output_ct.'+formatCounter(ct_config)+'.hdf5'
+        _id = formatCounter(ct_config)
+        f_name = output_path+'/ns_output_ct.'+_id+'.hdf5'
         if not os.path.isfile(f_name):
             print("Can't find HDF5 file: "+f_name)
             exit(1)
-        return 'ns_output_ct.'+formatCounter(ct_config)+'.hdf5'
+        return [{ "file": 'ns_output_ct.'+_id+'.hdf5', "id": _id}]
     else:
         files = [f for f in os.listdir(output_path) if re.match(r'ns_output_ct.*\.hdf5', f)]
         if len(files) == 0:
             print("Can't find ns_output_ct HDF5 files on: "+output_path)
             exit(1)
         files.sort(key=lambda f: int(re.sub('\D', '', f)), reverse=True)
-        return files[0]
+        if all:
+            files_result = []
+            for f in files:
+                r = re.match(r'ns_output_ct.(.*)\.hdf5', f)
+                files_result.append({ "file": f, "id": r.group(1) })
+            return files_result
+        r = re.match(r'ns_output_ct.(.*)\.hdf5', files[0])
+        return [{ "file": files[0], "id": r.group(1) }]
 
 def getNode(output_path, node_config,id_node):
     out_path = output_path+'/probes_fsi'
