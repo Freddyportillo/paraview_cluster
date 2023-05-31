@@ -46,7 +46,7 @@ def checkResultPath(result_path, clear = False):
         clearFolder(result_path)
 
 def generateCtResultDir(result_path, ct_id):
-    path = result_path + "/cts/"+ct_id
+    path = result_path #+ "/cts/"+ct_id
     if not os.path.exists(path):
         os.makedirs(path)
     return path

@@ -4,6 +4,7 @@
 #### import the simple module from the paraview
 import sys
 import json
+import os
 from paraview.simple import *
 from paraview import catalyst
 
@@ -84,84 +85,6 @@ def run_postproc(output_path, result_path, ct):
     ibm_fim_003_000000000pvtp.CellArrayStatus = ['Area', 'Delta_s', 'Force', 'Normals', 'Velocity']
     ibm_fim_003_000000000pvtp.TimeArray = 'None'
 
-    # show data from ibm_fim_002_000000000pvtp
-    ibm_fim_002_000000000pvtpDisplay = Show(ibm_fim_002_000000000pvtp, renderView1, 'GeometryRepresentation')
-
-    # trace defaults for the display properties.
-    ibm_fim_002_000000000pvtpDisplay.Representation = 'Surface'
-    ibm_fim_002_000000000pvtpDisplay.AmbientColor = [0.7098039215686275, 0.7098039215686275, 0.7098039215686275]
-    ibm_fim_002_000000000pvtpDisplay.ColorArrayName = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.DiffuseColor = [0.7098039215686275, 0.7098039215686275, 0.7098039215686275]
-    ibm_fim_002_000000000pvtpDisplay.SelectTCoordArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.SelectNormalArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.SelectTangentArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.OSPRayScaleFunction = 'PiecewiseFunction'
-    ibm_fim_002_000000000pvtpDisplay.SelectOrientationVectors = 'None'
-    ibm_fim_002_000000000pvtpDisplay.ScaleFactor = 0.09450006484985352
-    ibm_fim_002_000000000pvtpDisplay.SelectScaleArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.GlyphType = 'Arrow'
-    ibm_fim_002_000000000pvtpDisplay.GlyphTableIndexArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.GaussianRadius = 0.004725003242492676
-    ibm_fim_002_000000000pvtpDisplay.SetScaleArray = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.ScaleTransferFunction = 'PiecewiseFunction'
-    ibm_fim_002_000000000pvtpDisplay.OpacityArray = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.OpacityTransferFunction = 'PiecewiseFunction'
-    ibm_fim_002_000000000pvtpDisplay.DataAxesGrid = 'GridAxesRepresentation'
-    ibm_fim_002_000000000pvtpDisplay.PolarAxes = 'PolarAxesRepresentation'
-    ibm_fim_002_000000000pvtpDisplay.SelectInputVectors = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.WriteLog = ''
-
-    # show data from ibm_fim_001_000000000pvtp
-    ibm_fim_001_000000000pvtpDisplay = Show(ibm_fim_001_000000000pvtp, renderView1, 'GeometryRepresentation')
-
-    # trace defaults for the display properties.
-    ibm_fim_001_000000000pvtpDisplay.Representation = 'Surface'
-    ibm_fim_001_000000000pvtpDisplay.ColorArrayName = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.Opacity = 0.2
-    ibm_fim_001_000000000pvtpDisplay.SelectTCoordArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.SelectNormalArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.SelectTangentArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.OSPRayScaleFunction = 'PiecewiseFunction'
-    ibm_fim_001_000000000pvtpDisplay.SelectOrientationVectors = 'None'
-    ibm_fim_001_000000000pvtpDisplay.ScaleFactor = 1.8512276996023616
-    ibm_fim_001_000000000pvtpDisplay.SelectScaleArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.GlyphType = 'Arrow'
-    ibm_fim_001_000000000pvtpDisplay.GlyphTableIndexArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.GaussianRadius = 0.09256138498011808
-    ibm_fim_001_000000000pvtpDisplay.SetScaleArray = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.ScaleTransferFunction = 'PiecewiseFunction'
-    ibm_fim_001_000000000pvtpDisplay.OpacityArray = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.OpacityTransferFunction = 'PiecewiseFunction'
-    ibm_fim_001_000000000pvtpDisplay.DataAxesGrid = 'GridAxesRepresentation'
-    ibm_fim_001_000000000pvtpDisplay.PolarAxes = 'PolarAxesRepresentation'
-    ibm_fim_001_000000000pvtpDisplay.SelectInputVectors = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.WriteLog = ''
-
-    # show data from ibm_fim_003_000000000pvtp
-    ibm_fim_003_000000000pvtpDisplay = Show(ibm_fim_003_000000000pvtp, renderView1, 'GeometryRepresentation')
-
-    # trace defaults for the display properties.
-    ibm_fim_003_000000000pvtpDisplay.Representation = 'Surface'
-    ibm_fim_003_000000000pvtpDisplay.ColorArrayName = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.Opacity = 0.2
-    ibm_fim_003_000000000pvtpDisplay.SelectTCoordArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.SelectNormalArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.SelectTangentArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.OSPRayScaleFunction = 'PiecewiseFunction'
-    ibm_fim_003_000000000pvtpDisplay.SelectOrientationVectors = 'None'
-    ibm_fim_003_000000000pvtpDisplay.ScaleFactor = 0.4997869968414307
-    ibm_fim_003_000000000pvtpDisplay.SelectScaleArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.GlyphType = 'Arrow'
-    ibm_fim_003_000000000pvtpDisplay.GlyphTableIndexArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.GaussianRadius = 0.024989349842071535
-    ibm_fim_003_000000000pvtpDisplay.SetScaleArray = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.ScaleTransferFunction = 'PiecewiseFunction'
-    ibm_fim_003_000000000pvtpDisplay.OpacityArray = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.OpacityTransferFunction = 'PiecewiseFunction'
-    ibm_fim_003_000000000pvtpDisplay.DataAxesGrid = 'GridAxesRepresentation'
-    ibm_fim_003_000000000pvtpDisplay.PolarAxes = 'PolarAxesRepresentation'
-    ibm_fim_003_000000000pvtpDisplay.SelectInputVectors = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.WriteLog = ''
     
     # create a new 'Calculator'
     calculator1 = Calculator(registrationName='Calculator1', Input=ns_output_ct)
@@ -277,15 +200,26 @@ def run_postproc(output_path, result_path, ct):
     # trace defaults for the extractor.
     pNG1.Trigger = 'TimeStep'
 
-    # init the 'PNG' selected for 'Writer'
+    # init the 'PNG1 selected for 'Writer'
     pNG1.Writer.FileName = 'mach_'+file_id+'_'+ct_id+'.png'
     pNG1.Writer.ImageResolution = [1254, 643]
     pNG1.Writer.TransparentBackground = 1
     pNG1.Writer.Format = 'PNG'
 
+    local_path = result_path+'/mach/'
+    if not os.path.exists(local_path):
+        os.makedirs(local_path)
+
     # ----------------------------------------------------------------
     # restore active source
     SetActiveSource(pNG1)
+
+    options = catalyst.Options()
+    options.ExtractsOutputDirectory = local_path
+    options.GlobalTrigger = 'TimeValue'
+    options.CatalystLiveTrigger = 'TimeStep'
+
+    SaveExtractsUsingCatalystOptions(options)
     # ----------------------------------------------------------------
 ############################################################################################
 #           PRESSURE
@@ -402,7 +336,8 @@ def run_postproc(output_path, result_path, ct):
     pressureLUTColorBar.LabelColor = [0.0, 0.0, 0.0]
     pressureLUTColorBar.LabelFontSize = 18
     pressureLUTColorBar.ScalarBarLength = 0.32999999999999957
-    
+    pressureLUTColorBar.RangeLabelFormat = '%-#6.3e'
+
     # set color bar visibility
     pressureLUTColorBar.Visibility = 1
     
@@ -418,104 +353,36 @@ def run_postproc(output_path, result_path, ct):
     pressurePWF = GetOpacityTransferFunction('pressure')
     pressurePWF.Points = [279745.6502463703, 0.0, 0.5, 0.0, 303755.73440106044, 1.0, 0.5, 0.0]
     pressurePWF.ScalarRangeInitialized = 1
-    
-        # show data from ibm_fim_002_000000000pvtp
-    ibm_fim_002_000000000pvtpDisplay = Show(ibm_fim_002_000000000pvtp, renderView2, 'GeometryRepresentation')
 
-    # trace defaults for the display properties.
-    ibm_fim_002_000000000pvtpDisplay.Representation = 'Surface'
-    ibm_fim_002_000000000pvtpDisplay.AmbientColor = [0.7098039215686275, 0.7098039215686275, 0.7098039215686275]
-    ibm_fim_002_000000000pvtpDisplay.ColorArrayName = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.DiffuseColor = [0.7098039215686275, 0.7098039215686275, 0.7098039215686275]
-    ibm_fim_002_000000000pvtpDisplay.SelectTCoordArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.SelectNormalArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.SelectTangentArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.OSPRayScaleFunction = 'PiecewiseFunction'
-    ibm_fim_002_000000000pvtpDisplay.SelectOrientationVectors = 'None'
-    ibm_fim_002_000000000pvtpDisplay.ScaleFactor = 0.09450006484985352
-    ibm_fim_002_000000000pvtpDisplay.SelectScaleArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.GlyphType = 'Arrow'
-    ibm_fim_002_000000000pvtpDisplay.GlyphTableIndexArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.GaussianRadius = 0.004725003242492676
-    ibm_fim_002_000000000pvtpDisplay.SetScaleArray = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.ScaleTransferFunction = 'PiecewiseFunction'
-    ibm_fim_002_000000000pvtpDisplay.OpacityArray = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.OpacityTransferFunction = 'PiecewiseFunction'
-    ibm_fim_002_000000000pvtpDisplay.DataAxesGrid = 'GridAxesRepresentation'
-    ibm_fim_002_000000000pvtpDisplay.PolarAxes = 'PolarAxesRepresentation'
-    ibm_fim_002_000000000pvtpDisplay.SelectInputVectors = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.WriteLog = ''
-
-    # show data from ibm_fim_001_000000000pvtp
-    ibm_fim_001_000000000pvtpDisplay = Show(ibm_fim_001_000000000pvtp, renderView2, 'GeometryRepresentation')
-
-    # trace defaults for the display properties.
-    ibm_fim_001_000000000pvtpDisplay.Representation = 'Surface'
-    ibm_fim_001_000000000pvtpDisplay.ColorArrayName = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.Opacity = 0.2
-    ibm_fim_001_000000000pvtpDisplay.SelectTCoordArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.SelectNormalArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.SelectTangentArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.OSPRayScaleFunction = 'PiecewiseFunction'
-    ibm_fim_001_000000000pvtpDisplay.SelectOrientationVectors = 'None'
-    ibm_fim_001_000000000pvtpDisplay.ScaleFactor = 1.8512276996023616
-    ibm_fim_001_000000000pvtpDisplay.SelectScaleArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.GlyphType = 'Arrow'
-    ibm_fim_001_000000000pvtpDisplay.GlyphTableIndexArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.GaussianRadius = 0.09256138498011808
-    ibm_fim_001_000000000pvtpDisplay.SetScaleArray = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.ScaleTransferFunction = 'PiecewiseFunction'
-    ibm_fim_001_000000000pvtpDisplay.OpacityArray = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.OpacityTransferFunction = 'PiecewiseFunction'
-    ibm_fim_001_000000000pvtpDisplay.DataAxesGrid = 'GridAxesRepresentation'
-    ibm_fim_001_000000000pvtpDisplay.PolarAxes = 'PolarAxesRepresentation'
-    ibm_fim_001_000000000pvtpDisplay.SelectInputVectors = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.WriteLog = ''
-
-    # show data from ibm_fim_003_000000000pvtp
-    ibm_fim_003_000000000pvtpDisplay = Show(ibm_fim_003_000000000pvtp, renderView2, 'GeometryRepresentation')
-
-    # trace defaults for the display properties.
-    ibm_fim_003_000000000pvtpDisplay.Representation = 'Surface'
-    ibm_fim_003_000000000pvtpDisplay.ColorArrayName = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.Opacity = 0.2
-    ibm_fim_003_000000000pvtpDisplay.SelectTCoordArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.SelectNormalArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.SelectTangentArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.OSPRayScaleFunction = 'PiecewiseFunction'
-    ibm_fim_003_000000000pvtpDisplay.SelectOrientationVectors = 'None'
-    ibm_fim_003_000000000pvtpDisplay.ScaleFactor = 0.4997869968414307
-    ibm_fim_003_000000000pvtpDisplay.SelectScaleArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.GlyphType = 'Arrow'
-    ibm_fim_003_000000000pvtpDisplay.GlyphTableIndexArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.GaussianRadius = 0.024989349842071535
-    ibm_fim_003_000000000pvtpDisplay.SetScaleArray = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.ScaleTransferFunction = 'PiecewiseFunction'
-    ibm_fim_003_000000000pvtpDisplay.OpacityArray = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.OpacityTransferFunction = 'PiecewiseFunction'
-    ibm_fim_003_000000000pvtpDisplay.DataAxesGrid = 'GridAxesRepresentation'
-    ibm_fim_003_000000000pvtpDisplay.PolarAxes = 'PolarAxesRepresentation'
-    ibm_fim_003_000000000pvtpDisplay.SelectInputVectors = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.WriteLog = ''
     # ----------------------------------------------------------------
     # setup extractors
     # ----------------------------------------------------------------
-    
+    Delete(pNG1)
     # create extractor
-    pNG2 = CreateExtractor('PNG', renderView2, registrationName='PNG2')
+    pNG1 = CreateExtractor('PNG', renderView2, registrationName='PNG1')
     # trace defaults for the extractor.
-    pNG2.Trigger = 'TimeStep'
+    pNG1.Trigger = 'TimeStep'
     
-    # init the 'PNG' selected for 'Writer'
-    pNG2.Writer.FileName = 'pressure_'+file_id+'_'+ct_id+'.png'
-    pNG2.Writer.ImageResolution = [1254, 643]
-    pNG2.Writer.TransparentBackground = 1
-    pNG2.Writer.Format = 'PNG'
+    # init the 'PNG1 selected for 'Writer'
+    pNG1.Writer.FileName = 'pressure_'+file_id+'_'+ct_id+'.png'
+    pNG1.Writer.ImageResolution = [1254, 643]
+    pNG1.Writer.TransparentBackground = 1
+    pNG1.Writer.Format = 'PNG'
 
+
+    local_path = result_path+'/pressure/'
+    if not os.path.exists(local_path):
+        os.makedirs(local_path)
     # ----------------------------------------------------------------
     # restore active source
-    SetActiveSource(pNG2)
+    SetActiveSource(pNG1)
 
+    options = catalyst.Options()
+    options.ExtractsOutputDirectory = local_path
+    options.GlobalTrigger = 'TimeValue'
+    options.CatalystLiveTrigger = 'TimeStep'
+
+    SaveExtractsUsingCatalystOptions(options)
 ############################################################################################
 #           velocity U
 ############################################################################################
@@ -658,104 +525,36 @@ def run_postproc(output_path, result_path, ct):
     uPWF.Points = [-50.779897689513106, 0.0, 0.5, 0.0, 144.92289848473575, 1.0, 0.5, 0.0]
     uPWF.ScalarRangeInitialized = 1
 
-    # show data from ibm_fim_002_000000000pvtp
-    ibm_fim_002_000000000pvtpDisplay = Show(ibm_fim_002_000000000pvtp, renderView3, 'GeometryRepresentation')
-
-    # trace defaults for the display properties.
-    ibm_fim_002_000000000pvtpDisplay.Representation = 'Surface'
-    ibm_fim_002_000000000pvtpDisplay.AmbientColor = [0.7098039215686275, 0.7098039215686275, 0.7098039215686275]
-    ibm_fim_002_000000000pvtpDisplay.ColorArrayName = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.DiffuseColor = [0.7098039215686275, 0.7098039215686275, 0.7098039215686275]
-    ibm_fim_002_000000000pvtpDisplay.SelectTCoordArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.SelectNormalArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.SelectTangentArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.OSPRayScaleFunction = 'PiecewiseFunction'
-    ibm_fim_002_000000000pvtpDisplay.SelectOrientationVectors = 'None'
-    ibm_fim_002_000000000pvtpDisplay.ScaleFactor = 0.09450006484985352
-    ibm_fim_002_000000000pvtpDisplay.SelectScaleArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.GlyphType = 'Arrow'
-    ibm_fim_002_000000000pvtpDisplay.GlyphTableIndexArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.GaussianRadius = 0.004725003242492676
-    ibm_fim_002_000000000pvtpDisplay.SetScaleArray = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.ScaleTransferFunction = 'PiecewiseFunction'
-    ibm_fim_002_000000000pvtpDisplay.OpacityArray = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.OpacityTransferFunction = 'PiecewiseFunction'
-    ibm_fim_002_000000000pvtpDisplay.DataAxesGrid = 'GridAxesRepresentation'
-    ibm_fim_002_000000000pvtpDisplay.PolarAxes = 'PolarAxesRepresentation'
-    ibm_fim_002_000000000pvtpDisplay.SelectInputVectors = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.WriteLog = ''
-
-    # show data from ibm_fim_001_000000000pvtp
-    ibm_fim_001_000000000pvtpDisplay = Show(ibm_fim_001_000000000pvtp, renderView3, 'GeometryRepresentation')
-
-    # trace defaults for the display properties.
-    ibm_fim_001_000000000pvtpDisplay.Representation = 'Surface'
-    ibm_fim_001_000000000pvtpDisplay.ColorArrayName = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.Opacity = 0.2
-    ibm_fim_001_000000000pvtpDisplay.SelectTCoordArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.SelectNormalArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.SelectTangentArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.OSPRayScaleFunction = 'PiecewiseFunction'
-    ibm_fim_001_000000000pvtpDisplay.SelectOrientationVectors = 'None'
-    ibm_fim_001_000000000pvtpDisplay.ScaleFactor = 1.8512276996023616
-    ibm_fim_001_000000000pvtpDisplay.SelectScaleArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.GlyphType = 'Arrow'
-    ibm_fim_001_000000000pvtpDisplay.GlyphTableIndexArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.GaussianRadius = 0.09256138498011808
-    ibm_fim_001_000000000pvtpDisplay.SetScaleArray = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.ScaleTransferFunction = 'PiecewiseFunction'
-    ibm_fim_001_000000000pvtpDisplay.OpacityArray = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.OpacityTransferFunction = 'PiecewiseFunction'
-    ibm_fim_001_000000000pvtpDisplay.DataAxesGrid = 'GridAxesRepresentation'
-    ibm_fim_001_000000000pvtpDisplay.PolarAxes = 'PolarAxesRepresentation'
-    ibm_fim_001_000000000pvtpDisplay.SelectInputVectors = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.WriteLog = ''
-
-    # show data from ibm_fim_003_000000000pvtp
-    ibm_fim_003_000000000pvtpDisplay = Show(ibm_fim_003_000000000pvtp, renderView3, 'GeometryRepresentation')
-
-    # trace defaults for the display properties.
-    ibm_fim_003_000000000pvtpDisplay.Representation = 'Surface'
-    ibm_fim_003_000000000pvtpDisplay.ColorArrayName = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.Opacity = 0.2
-    ibm_fim_003_000000000pvtpDisplay.SelectTCoordArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.SelectNormalArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.SelectTangentArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.OSPRayScaleFunction = 'PiecewiseFunction'
-    ibm_fim_003_000000000pvtpDisplay.SelectOrientationVectors = 'None'
-    ibm_fim_003_000000000pvtpDisplay.ScaleFactor = 0.4997869968414307
-    ibm_fim_003_000000000pvtpDisplay.SelectScaleArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.GlyphType = 'Arrow'
-    ibm_fim_003_000000000pvtpDisplay.GlyphTableIndexArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.GaussianRadius = 0.024989349842071535
-    ibm_fim_003_000000000pvtpDisplay.SetScaleArray = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.ScaleTransferFunction = 'PiecewiseFunction'
-    ibm_fim_003_000000000pvtpDisplay.OpacityArray = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.OpacityTransferFunction = 'PiecewiseFunction'
-    ibm_fim_003_000000000pvtpDisplay.DataAxesGrid = 'GridAxesRepresentation'
-    ibm_fim_003_000000000pvtpDisplay.PolarAxes = 'PolarAxesRepresentation'
-    ibm_fim_003_000000000pvtpDisplay.SelectInputVectors = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.WriteLog = ''
+    
     # ----------------------------------------------------------------
     # setup extractors
     # ----------------------------------------------------------------
+    Delete(pNG1)
 
     # create extractor
-    pNG3 = CreateExtractor('PNG', renderView3, registrationName='PNG3')
-    # trace defaults for the extractor.
-    pNG3.Trigger = 'TimeValue'
+    pNG1 = CreateExtractor('PNG', renderView3, registrationName='PNG1')
 
-    # init the 'PNG' selected for 'Writer'
-    pNG3.Writer.FileName = 'u_vel_'+file_id+'_'+ct_id+'.png'
-    pNG3.Writer.ImageResolution = [1254, 643]
-    pNG3.Writer.TransparentBackground = 1
-    pNG3.Writer.Format = 'PNG'
+    # init the 'PNG1 selected for 'Writer'
+    pNG1.Writer.FileName = 'u_vel_'+file_id+'_'+ct_id+'.png'
+    pNG1.Writer.ImageResolution = [1254, 643]
+    pNG1.Writer.TransparentBackground = 1
+    pNG1.Writer.Format = 'PNG'
 
+    local_path = result_path+'/u_velocity/'
+    if not os.path.exists(local_path):
+        os.makedirs(local_path)
     # ----------------------------------------------------------------
     # restore active source
-    SetActiveSource(pNG3)
+    SetActiveSource(pNG1)
 
+    options = catalyst.Options()
+    options.ExtractsOutputDirectory = local_path
+    options.GlobalTrigger = 'TimeValue'
+    options.CatalystLiveTrigger = 'TimeStep'
 
+    SaveExtractsUsingCatalystOptions(options)
+
+    
 ############################################################################################
 #           velocity V
 ############################################################################################
@@ -893,104 +692,35 @@ def run_postproc(output_path, result_path, ct):
     vPWF.Points = [-299.12179020725245, 0.0, 0.5, 0.0, 88.25445723454459, 1.0, 0.5, 0.0]
     vPWF.ScalarRangeInitialized = 1
 
-    # show data from ibm_fim_002_000000000pvtp
-    ibm_fim_002_000000000pvtpDisplay = Show(ibm_fim_002_000000000pvtp, renderView4, 'GeometryRepresentation')
 
-    # trace defaults for the display properties.
-    ibm_fim_002_000000000pvtpDisplay.Representation = 'Surface'
-    ibm_fim_002_000000000pvtpDisplay.AmbientColor = [0.7098039215686275, 0.7098039215686275, 0.7098039215686275]
-    ibm_fim_002_000000000pvtpDisplay.ColorArrayName = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.DiffuseColor = [0.7098039215686275, 0.7098039215686275, 0.7098039215686275]
-    ibm_fim_002_000000000pvtpDisplay.SelectTCoordArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.SelectNormalArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.SelectTangentArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.OSPRayScaleFunction = 'PiecewiseFunction'
-    ibm_fim_002_000000000pvtpDisplay.SelectOrientationVectors = 'None'
-    ibm_fim_002_000000000pvtpDisplay.ScaleFactor = 0.09450006484985352
-    ibm_fim_002_000000000pvtpDisplay.SelectScaleArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.GlyphType = 'Arrow'
-    ibm_fim_002_000000000pvtpDisplay.GlyphTableIndexArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.GaussianRadius = 0.004725003242492676
-    ibm_fim_002_000000000pvtpDisplay.SetScaleArray = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.ScaleTransferFunction = 'PiecewiseFunction'
-    ibm_fim_002_000000000pvtpDisplay.OpacityArray = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.OpacityTransferFunction = 'PiecewiseFunction'
-    ibm_fim_002_000000000pvtpDisplay.DataAxesGrid = 'GridAxesRepresentation'
-    ibm_fim_002_000000000pvtpDisplay.PolarAxes = 'PolarAxesRepresentation'
-    ibm_fim_002_000000000pvtpDisplay.SelectInputVectors = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.WriteLog = ''
-
-    # show data from ibm_fim_001_000000000pvtp
-    ibm_fim_001_000000000pvtpDisplay = Show(ibm_fim_001_000000000pvtp, renderView4, 'GeometryRepresentation')
-
-    # trace defaults for the display properties.
-    ibm_fim_001_000000000pvtpDisplay.Representation = 'Surface'
-    ibm_fim_001_000000000pvtpDisplay.ColorArrayName = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.Opacity = 0.2
-    ibm_fim_001_000000000pvtpDisplay.SelectTCoordArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.SelectNormalArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.SelectTangentArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.OSPRayScaleFunction = 'PiecewiseFunction'
-    ibm_fim_001_000000000pvtpDisplay.SelectOrientationVectors = 'None'
-    ibm_fim_001_000000000pvtpDisplay.ScaleFactor = 1.8512276996023616
-    ibm_fim_001_000000000pvtpDisplay.SelectScaleArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.GlyphType = 'Arrow'
-    ibm_fim_001_000000000pvtpDisplay.GlyphTableIndexArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.GaussianRadius = 0.09256138498011808
-    ibm_fim_001_000000000pvtpDisplay.SetScaleArray = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.ScaleTransferFunction = 'PiecewiseFunction'
-    ibm_fim_001_000000000pvtpDisplay.OpacityArray = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.OpacityTransferFunction = 'PiecewiseFunction'
-    ibm_fim_001_000000000pvtpDisplay.DataAxesGrid = 'GridAxesRepresentation'
-    ibm_fim_001_000000000pvtpDisplay.PolarAxes = 'PolarAxesRepresentation'
-    ibm_fim_001_000000000pvtpDisplay.SelectInputVectors = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.WriteLog = ''
-
-    # show data from ibm_fim_003_000000000pvtp
-    ibm_fim_003_000000000pvtpDisplay = Show(ibm_fim_003_000000000pvtp, renderView4, 'GeometryRepresentation')
-
-    # trace defaults for the display properties.
-    ibm_fim_003_000000000pvtpDisplay.Representation = 'Surface'
-    ibm_fim_003_000000000pvtpDisplay.ColorArrayName = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.Opacity = 0.2
-    ibm_fim_003_000000000pvtpDisplay.SelectTCoordArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.SelectNormalArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.SelectTangentArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.OSPRayScaleFunction = 'PiecewiseFunction'
-    ibm_fim_003_000000000pvtpDisplay.SelectOrientationVectors = 'None'
-    ibm_fim_003_000000000pvtpDisplay.ScaleFactor = 0.4997869968414307
-    ibm_fim_003_000000000pvtpDisplay.SelectScaleArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.GlyphType = 'Arrow'
-    ibm_fim_003_000000000pvtpDisplay.GlyphTableIndexArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.GaussianRadius = 0.024989349842071535
-    ibm_fim_003_000000000pvtpDisplay.SetScaleArray = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.ScaleTransferFunction = 'PiecewiseFunction'
-    ibm_fim_003_000000000pvtpDisplay.OpacityArray = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.OpacityTransferFunction = 'PiecewiseFunction'
-    ibm_fim_003_000000000pvtpDisplay.DataAxesGrid = 'GridAxesRepresentation'
-    ibm_fim_003_000000000pvtpDisplay.PolarAxes = 'PolarAxesRepresentation'
-    ibm_fim_003_000000000pvtpDisplay.SelectInputVectors = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.WriteLog = ''
     # ----------------------------------------------------------------
     # setup extractors
     # ----------------------------------------------------------------
-
+    Delete(pNG1)
     # create extractor
-    pNG4 = CreateExtractor('PNG', renderView4, registrationName='PNG4')
-    # trace defaults for the extractor.
-    pNG4.Trigger = 'TimeValue'
+    pNG1 = CreateExtractor('PNG', renderView4, registrationName='PNG1')
 
-    # init the 'PNG' selected for 'Writer'
-    pNG4.Writer.FileName = 'v_vel_'+file_id+'_'+ct_id+'.png'
-    pNG4.Writer.ImageResolution = [1254, 643]
-    pNG4.Writer.TransparentBackground = 1
-    pNG4.Writer.Format = 'PNG'
+    # init the 'PNG1 selected for 'Writer'
+    pNG1.Writer.FileName = 'v_vel_'+file_id+'_'+ct_id+'.png'
+    pNG1.Writer.ImageResolution = [1254, 643]
+    pNG1.Writer.TransparentBackground = 1
+    pNG1.Writer.Format = 'PNG'
 
+    local_path = result_path+'/v_velocity/'
+    if not os.path.exists(local_path):
+        os.makedirs(local_path)
     # ----------------------------------------------------------------
     # restore active source
-    SetActiveSource(pNG4)
+    SetActiveSource(pNG1)
 
+    options = catalyst.Options()
+    options.ExtractsOutputDirectory = local_path
+    options.GlobalTrigger = 'TimeValue'
+    options.CatalystLiveTrigger = 'TimeStep'
 
+    SaveExtractsUsingCatalystOptions(options)
+
+    
 ############################################################################################
 #           TEMPERATURE
 ############################################################################################
@@ -1056,84 +786,6 @@ def run_postproc(output_path, result_path, ct):
     threshold1Display = Show(threshold1, renderView5, 'UnstructuredGridRepresentation') 
     # ------------------------------------------------------------------------------
 
-    # show data from ibm_fim_002_000000000pvtp
-    ibm_fim_002_000000000pvtpDisplay = Show(ibm_fim_002_000000000pvtp, renderView5, 'GeometryRepresentation')
-
-    # trace defaults for the display properties.
-    ibm_fim_002_000000000pvtpDisplay.Representation = 'Surface'
-    ibm_fim_002_000000000pvtpDisplay.AmbientColor = [0.7098039215686275, 0.7098039215686275, 0.7098039215686275]
-    ibm_fim_002_000000000pvtpDisplay.ColorArrayName = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.DiffuseColor = [0.7098039215686275, 0.7098039215686275, 0.7098039215686275]
-    ibm_fim_002_000000000pvtpDisplay.SelectTCoordArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.SelectNormalArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.SelectTangentArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.OSPRayScaleFunction = 'PiecewiseFunction'
-    ibm_fim_002_000000000pvtpDisplay.SelectOrientationVectors = 'None'
-    ibm_fim_002_000000000pvtpDisplay.ScaleFactor = 0.09450006484985352
-    ibm_fim_002_000000000pvtpDisplay.SelectScaleArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.GlyphType = 'Arrow'
-    ibm_fim_002_000000000pvtpDisplay.GlyphTableIndexArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.GaussianRadius = 0.004725003242492676
-    ibm_fim_002_000000000pvtpDisplay.SetScaleArray = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.ScaleTransferFunction = 'PiecewiseFunction'
-    ibm_fim_002_000000000pvtpDisplay.OpacityArray = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.OpacityTransferFunction = 'PiecewiseFunction'
-    ibm_fim_002_000000000pvtpDisplay.DataAxesGrid = 'GridAxesRepresentation'
-    ibm_fim_002_000000000pvtpDisplay.PolarAxes = 'PolarAxesRepresentation'
-    ibm_fim_002_000000000pvtpDisplay.SelectInputVectors = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.WriteLog = ''
-
-    # show data from ibm_fim_001_000000000pvtp
-    ibm_fim_001_000000000pvtpDisplay = Show(ibm_fim_001_000000000pvtp, renderView5, 'GeometryRepresentation')
-
-    # trace defaults for the display properties.
-    ibm_fim_001_000000000pvtpDisplay.Representation = 'Surface'
-    ibm_fim_001_000000000pvtpDisplay.ColorArrayName = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.Opacity = 0.2
-    ibm_fim_001_000000000pvtpDisplay.SelectTCoordArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.SelectNormalArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.SelectTangentArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.OSPRayScaleFunction = 'PiecewiseFunction'
-    ibm_fim_001_000000000pvtpDisplay.SelectOrientationVectors = 'None'
-    ibm_fim_001_000000000pvtpDisplay.ScaleFactor = 1.8512276996023616
-    ibm_fim_001_000000000pvtpDisplay.SelectScaleArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.GlyphType = 'Arrow'
-    ibm_fim_001_000000000pvtpDisplay.GlyphTableIndexArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.GaussianRadius = 0.09256138498011808
-    ibm_fim_001_000000000pvtpDisplay.SetScaleArray = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.ScaleTransferFunction = 'PiecewiseFunction'
-    ibm_fim_001_000000000pvtpDisplay.OpacityArray = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.OpacityTransferFunction = 'PiecewiseFunction'
-    ibm_fim_001_000000000pvtpDisplay.DataAxesGrid = 'GridAxesRepresentation'
-    ibm_fim_001_000000000pvtpDisplay.PolarAxes = 'PolarAxesRepresentation'
-    ibm_fim_001_000000000pvtpDisplay.SelectInputVectors = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.WriteLog = ''
-
-    # show data from ibm_fim_003_000000000pvtp
-    ibm_fim_003_000000000pvtpDisplay = Show(ibm_fim_003_000000000pvtp, renderView5, 'GeometryRepresentation')
-
-    # trace defaults for the display properties.
-    ibm_fim_003_000000000pvtpDisplay.Representation = 'Surface'
-    ibm_fim_003_000000000pvtpDisplay.ColorArrayName = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.Opacity = 0.2
-    ibm_fim_003_000000000pvtpDisplay.SelectTCoordArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.SelectNormalArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.SelectTangentArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.OSPRayScaleFunction = 'PiecewiseFunction'
-    ibm_fim_003_000000000pvtpDisplay.SelectOrientationVectors = 'None'
-    ibm_fim_003_000000000pvtpDisplay.ScaleFactor = 0.4997869968414307
-    ibm_fim_003_000000000pvtpDisplay.SelectScaleArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.GlyphType = 'Arrow'
-    ibm_fim_003_000000000pvtpDisplay.GlyphTableIndexArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.GaussianRadius = 0.024989349842071535
-    ibm_fim_003_000000000pvtpDisplay.SetScaleArray = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.ScaleTransferFunction = 'PiecewiseFunction'
-    ibm_fim_003_000000000pvtpDisplay.OpacityArray = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.OpacityTransferFunction = 'PiecewiseFunction'
-    ibm_fim_003_000000000pvtpDisplay.DataAxesGrid = 'GridAxesRepresentation'
-    ibm_fim_003_000000000pvtpDisplay.PolarAxes = 'PolarAxesRepresentation'
-    ibm_fim_003_000000000pvtpDisplay.SelectInputVectors = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.WriteLog = ''
 
     # show data from threshold1
     threshold1Display = Show(threshold1, renderView5, 'UnstructuredGridRepresentation')
@@ -1210,22 +862,34 @@ def run_postproc(output_path, result_path, ct):
     # ----------------------------------------------------------------
     # setup extractors
     # ----------------------------------------------------------------
+    Delete(pNG1)
 
     # create extractor
-    pNG5 = CreateExtractor('PNG', renderView5, registrationName='PNG5')
+    pNG1 = CreateExtractor('PNG', renderView5, registrationName='PNG1')
     # trace defaults for the extractor.
-    pNG5.Trigger = 'TimeValue'
+    pNG1.Trigger = 'TimeValue'
 
-    # init the 'PNG' selected for 'Writer'
-    pNG5.Writer.FileName = 'temperature_'+file_id+'_'+ct_id+'.png'
-    pNG5.Writer.ImageResolution = [1254, 643]
-    pNG5.Writer.TransparentBackground = 1
-    pNG5.Writer.Format = 'PNG'
+    # init the 'PNG1 selected for 'Writer'
+    pNG1.Writer.FileName = 'temperature_'+file_id+'_'+ct_id+'.png'
+    pNG1.Writer.ImageResolution = [1254, 643]
+    pNG1.Writer.TransparentBackground = 1
+    pNG1.Writer.Format = 'PNG'
 
+    local_path = result_path+'/temperature/'
+    if not os.path.exists(local_path):
+        os.makedirs(local_path)
     # ----------------------------------------------------------------
     # restore active source
-    SetActiveSource(pNG5)
+    SetActiveSource(pNG1)
 
+    options = catalyst.Options()
+    options.ExtractsOutputDirectory = local_path
+    options.GlobalTrigger = 'TimeValue'
+    options.CatalystLiveTrigger = 'TimeStep'
+
+    SaveExtractsUsingCatalystOptions(options)
+
+   
 ############################################################################################
 #         VORTMAG
 ############################################################################################
@@ -1287,85 +951,6 @@ def run_postproc(output_path, result_path, ct):
     # ----------------------------------------------------------------
     # setup the visualization in view 'renderView6'
     # ----------------------------------------------------------------
-
-    # show data from ibm_fim_002_000000000pvtp
-    ibm_fim_002_000000000pvtpDisplay = Show(ibm_fim_002_000000000pvtp, renderView6, 'GeometryRepresentation')
-
-    # trace defaults for the display properties.
-    ibm_fim_002_000000000pvtpDisplay.Representation = 'Surface'
-    ibm_fim_002_000000000pvtpDisplay.AmbientColor = [0.7098039215686275, 0.7098039215686275, 0.7098039215686275]
-    ibm_fim_002_000000000pvtpDisplay.ColorArrayName = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.DiffuseColor = [0.7098039215686275, 0.7098039215686275, 0.7098039215686275]
-    ibm_fim_002_000000000pvtpDisplay.SelectTCoordArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.SelectNormalArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.SelectTangentArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.OSPRayScaleFunction = 'PiecewiseFunction'
-    ibm_fim_002_000000000pvtpDisplay.SelectOrientationVectors = 'None'
-    ibm_fim_002_000000000pvtpDisplay.ScaleFactor = 0.09450006484985352
-    ibm_fim_002_000000000pvtpDisplay.SelectScaleArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.GlyphType = 'Arrow'
-    ibm_fim_002_000000000pvtpDisplay.GlyphTableIndexArray = 'None'
-    ibm_fim_002_000000000pvtpDisplay.GaussianRadius = 0.004725003242492676
-    ibm_fim_002_000000000pvtpDisplay.SetScaleArray = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.ScaleTransferFunction = 'PiecewiseFunction'
-    ibm_fim_002_000000000pvtpDisplay.OpacityArray = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.OpacityTransferFunction = 'PiecewiseFunction'
-    ibm_fim_002_000000000pvtpDisplay.DataAxesGrid = 'GridAxesRepresentation'
-    ibm_fim_002_000000000pvtpDisplay.PolarAxes = 'PolarAxesRepresentation'
-    ibm_fim_002_000000000pvtpDisplay.SelectInputVectors = [None, '']
-    ibm_fim_002_000000000pvtpDisplay.WriteLog = ''
-
-    # show data from ibm_fim_001_000000000pvtp
-    ibm_fim_001_000000000pvtpDisplay = Show(ibm_fim_001_000000000pvtp, renderView6, 'GeometryRepresentation')
-
-    # trace defaults for the display properties.
-    ibm_fim_001_000000000pvtpDisplay.Representation = 'Surface'
-    ibm_fim_001_000000000pvtpDisplay.ColorArrayName = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.Opacity = 0.2
-    ibm_fim_001_000000000pvtpDisplay.SelectTCoordArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.SelectNormalArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.SelectTangentArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.OSPRayScaleFunction = 'PiecewiseFunction'
-    ibm_fim_001_000000000pvtpDisplay.SelectOrientationVectors = 'None'
-    ibm_fim_001_000000000pvtpDisplay.ScaleFactor = 1.8512276996023616
-    ibm_fim_001_000000000pvtpDisplay.SelectScaleArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.GlyphType = 'Arrow'
-    ibm_fim_001_000000000pvtpDisplay.GlyphTableIndexArray = 'None'
-    ibm_fim_001_000000000pvtpDisplay.GaussianRadius = 0.09256138498011808
-    ibm_fim_001_000000000pvtpDisplay.SetScaleArray = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.ScaleTransferFunction = 'PiecewiseFunction'
-    ibm_fim_001_000000000pvtpDisplay.OpacityArray = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.OpacityTransferFunction = 'PiecewiseFunction'
-    ibm_fim_001_000000000pvtpDisplay.DataAxesGrid = 'GridAxesRepresentation'
-    ibm_fim_001_000000000pvtpDisplay.PolarAxes = 'PolarAxesRepresentation'
-    ibm_fim_001_000000000pvtpDisplay.SelectInputVectors = [None, '']
-    ibm_fim_001_000000000pvtpDisplay.WriteLog = ''
-
-    # show data from ibm_fim_003_000000000pvtp
-    ibm_fim_003_000000000pvtpDisplay = Show(ibm_fim_003_000000000pvtp, renderView6, 'GeometryRepresentation')
-
-    # trace defaults for the display properties.
-    ibm_fim_003_000000000pvtpDisplay.Representation = 'Surface'
-    ibm_fim_003_000000000pvtpDisplay.ColorArrayName = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.Opacity = 0.2
-    ibm_fim_003_000000000pvtpDisplay.SelectTCoordArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.SelectNormalArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.SelectTangentArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.OSPRayScaleFunction = 'PiecewiseFunction'
-    ibm_fim_003_000000000pvtpDisplay.SelectOrientationVectors = 'None'
-    ibm_fim_003_000000000pvtpDisplay.ScaleFactor = 0.4997869968414307
-    ibm_fim_003_000000000pvtpDisplay.SelectScaleArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.GlyphType = 'Arrow'
-    ibm_fim_003_000000000pvtpDisplay.GlyphTableIndexArray = 'None'
-    ibm_fim_003_000000000pvtpDisplay.GaussianRadius = 0.024989349842071535
-    ibm_fim_003_000000000pvtpDisplay.SetScaleArray = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.ScaleTransferFunction = 'PiecewiseFunction'
-    ibm_fim_003_000000000pvtpDisplay.OpacityArray = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.OpacityTransferFunction = 'PiecewiseFunction'
-    ibm_fim_003_000000000pvtpDisplay.DataAxesGrid = 'GridAxesRepresentation'
-    ibm_fim_003_000000000pvtpDisplay.PolarAxes = 'PolarAxesRepresentation'
-    ibm_fim_003_000000000pvtpDisplay.SelectInputVectors = [None, '']
-    ibm_fim_003_000000000pvtpDisplay.WriteLog = ''
 
     # show data from threshold1
     threshold1Display = Show(threshold1, renderView6, 'UnstructuredGridRepresentation')
@@ -1448,22 +1033,35 @@ def run_postproc(output_path, result_path, ct):
     # ----------------------------------------------------------------
     # setup extractors
     # ----------------------------------------------------------------
+    Delete(pNG1)
 
     # create extractor
-    pNG6 = CreateExtractor('PNG', renderView6, registrationName='PNG6')
-    # trace defaults for the extractor.
-    pNG6.Trigger = 'TimeValue'
+    pNG1 = CreateExtractor('PNG', renderView6, registrationName='PNG1')
 
-    # init the 'PNG' selected for 'Writer'
-    pNG6.Writer.FileName = 'vortmag_'+file_id+'_'+ct_id+'.png'
-    pNG6.Writer.ImageResolution = [1254, 643]
-    pNG6.Writer.TransparentBackground = 1
-    pNG6.Writer.Format = 'PNG'
+    # init the 'PNG1 selected for 'Writer'
+    pNG1.Writer.FileName = 'vortmag_'+file_id+'_'+ct_id+'.png'
+    pNG1.Writer.ImageResolution = [1254, 643]
+    pNG1.Writer.TransparentBackground = 1
+    pNG1.Writer.Format = 'PNG'
 
+    local_path = result_path+'/vorticity_magnitude/'
+    if not os.path.exists(local_path):
+        os.makedirs(local_path)
     # ----------------------------------------------------------------
     # restore active source
-    SetActiveSource(pNG6)
+    SetActiveSource(pNG1)
 
+    options = catalyst.Options()
+    options.ExtractsOutputDirectory = local_path
+    options.GlobalTrigger = 'TimeValue'
+    options.CatalystLiveTrigger = 'TimeStep'
+
+    SaveExtractsUsingCatalystOptions(options)
+
+
+############################################################################################
+#         VELOCITY MAGNITUDE
+############################################################################################
 
     # Create a new 'Render View'
     renderView7 = CreateView('RenderView')
@@ -1565,7 +1163,7 @@ def run_postproc(output_path, result_path, ct):
     velocityLUTColorBar.WindowLocation = 'Any Location'
     velocityLUTColorBar.Position = [0.32, 0.12]
     velocityLUTColorBar.Title = 'Magnitude da velocidade [m/s]'
-    velocityLUTColorBar.ComponentTitle = 'Magnitude'
+    velocityLUTColorBar.ComponentTitle = ''
     velocityLUTColorBar.TitleColor = [0.0, 0.0, 0.0]
     velocityLUTColorBar.TitleFontSize = 20
     velocityLUTColorBar.LabelColor = [0.0, 0.0, 0.0]
@@ -1589,37 +1187,34 @@ def run_postproc(output_path, result_path, ct):
     velocityPWF.Points = [0.015658476057405522, 0.0, 0.5, 0.0, 335.77918576156503, 1.0, 0.5, 0.0]
     velocityPWF.ScalarRangeInitialized = 1
 
+    # ----------------------------------------------------------------
+    # setup extractors
+    # ----------------------------------------------------------------
+    Delete(pNG1)
+
     # create extractor
-    pNG7 = CreateExtractor('PNG', renderView7, registrationName='PNG7')
-    # trace defaults for the extractor.
-    pNG7.Trigger = 'TimeValue'
+    pNG1 = CreateExtractor('PNG', renderView7, registrationName='PNG1')
 
-    # init the 'PNG' selected for 'Writer'
-    pNG7.Writer.FileName = 'velmag_'+file_id+'_'+ct_id+'.png'
-    pNG7.Writer.ImageResolution = [1254, 643]
-    pNG7.Writer.TransparentBackground = 1
-    pNG7.Writer.Format = 'PNG'
+    # init the 'PNG1 selected for 'Writer'
+    pNG1.Writer.FileName = 'velmag_'+file_id+'_'+ct_id+'.png'
+    pNG1.Writer.ImageResolution = [1254, 643]
+    pNG1.Writer.TransparentBackground = 1
+    pNG1.Writer.Format = 'PNG'
 
+    local_path = result_path+'/velocity_magnitude/'
+    if not os.path.exists(local_path):
+        os.makedirs(local_path)
     # ----------------------------------------------------------------
     # restore active source
-    SetActiveSource(pNG7)
+    SetActiveSource(pNG1)
 
-    # Catalyst options
-    # from paraview import catalyst
-
-    # directory = 'paraview_'+file_id+'_ct'+ct_id
-    # # path = os.path.join(output_path,directory)
-    # path = result_path+'/'+ct_id
-    # os.makedirs(path,exist_ok = True)
     options = catalyst.Options()
-    options.ExtractsOutputDirectory = result_path
+    options.ExtractsOutputDirectory = local_path
     options.GlobalTrigger = 'TimeValue'
     options.CatalystLiveTrigger = 'TimeStep'
 
-    print('PARAVIEW OUTPUT PATH: ', result_path)
-    # init the 'TimeValue' selected for 'GlobalTrigger'
-    # options.GlobalTrigger.Length = 1.0
     SaveExtractsUsingCatalystOptions(options)
+
 
 
 if __name__ == '__main__':

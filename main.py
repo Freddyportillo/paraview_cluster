@@ -1,5 +1,6 @@
 #!./paraview-5.11.1/bin/pvpython
 import sys
+import os
 import subprocess
 import json
 from structural_postproc import *
@@ -89,6 +90,10 @@ def main():
     counter = 0
     outputs = len(output_paths)
     for output_path in output_paths:
+        if not os.path.exists(output_path):
+            print("\n\n\033[93m*****************************************************************\033[0m")
+            print("\033[93mIgnoring non existent output path: \033[0m"+output_path)
+            continue
         print("\n\n\033[92m*****************************************************************\033[0m")
         print("\033[92mProcessing output: \033[0m"+output_path)
         result = generateResultPathForOutput(output_path, args['results_path']['value'])

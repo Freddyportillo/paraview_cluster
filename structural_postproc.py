@@ -200,7 +200,7 @@ def run_structural_postproc(output_path, result_path, node):
 
         ax= plt.gca()	
         ax.set_yscale('log')
-        ax.set_xlim([0,350])
+        ax.set_xlim([0,150])
         # ax.set_ylim([-0.0001,0.001])	
         plt.title('FFT')	
         plt.grid()
