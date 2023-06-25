@@ -72,15 +72,26 @@ def run_structural_postproc(output_path, result_path, node):
             yf.append(y[0,i])
             zf.append(z[0,i])
 
-    # xf -= x[0,0]
-    # yf -= y[0,0]
-    # zf -= z[0,0]
+    uf = np.array(uf)
+    vf = np.array(vf)
+    wf = np.array(wf)
+    xf = np.array(xf)
+    yf = np.array(yf)
+    zf = np.array(zf)
+    tf = np.array(tf)
+    ctf = np.array(ctf)
+    
+    xf -= x[0,0]
+    yf -= y[0,0]
+    zf -= z[0,0]
 
-
+    xf *= 10000.0
+    yf *= 10000.0
+    zf *= 10000.0
     # PLOT X DISPLACMENT 
     fig = plt.figure(dpi=150)                       # resolução da imagem por ponto
     axes1 = fig.add_subplot(1, 1, 1)
-    axes1.set_ylabel('Deslocamento nodal na direção x (m)')
+    axes1.set_ylabel(r'Deslocamento nodal na direção x ($ \times 10^{-3} $m)')
     axes1.set_xlabel('t (s)')
     plt.plot(tf, xf[0:], '-',linewidth=0.8,color='black', label="Node: "+ node_id)
     plt.legend(loc='best')
@@ -92,7 +103,7 @@ def run_structural_postproc(output_path, result_path, node):
     # PLOT Y DISPLACEMENT
     fig = plt.figure(dpi=150)                       # resolução da imagem por ponto
     axes1 = fig.add_subplot(1, 1, 1)
-    axes1.set_ylabel('Deslocamento nodal na direção y (m)')
+    axes1.set_ylabel(r'Deslocamento nodal na direção y ($ \times 10^{-3} $m)')
     axes1.set_xlabel('t (s)')
     plt.plot(tf, yf[0:], '-',linewidth=0.8,color='black', label="Node: "+ node_id)
     plt.legend(loc='best')
@@ -104,7 +115,7 @@ def run_structural_postproc(output_path, result_path, node):
     # PLOT Z DISPLACEMENT
     fig = plt.figure(dpi=150)                       # resolução da imagem por ponto
     axes1 = fig.add_subplot(1, 1, 1)
-    axes1.set_ylabel('Deslocamento nodal na direção z (m)')
+    axes1.set_ylabel(r'Deslocamento nodal na direção z ($ \times 10^{-3} $m)')
     axes1.set_xlabel('t (s)')
     plt.plot(tf, zf[0:], '-',linewidth=0.8,color='black', label="Node: "+ node_id)
     plt.legend(loc='best')
@@ -192,19 +203,20 @@ def run_structural_postproc(output_path, result_path, node):
         plt.figure(dpi=150)
 
         plt.xlabel('Frequency [Hz]', fontsize=19, fontproperties=font)
-        plt.ylabel('Amplitude [m]', fontsize=19, fontproperties=font)
+        plt.ylabel(r'Amplitude ($ \times 10^{-3} $m)', fontsize=19, fontproperties=font)
         plt.plot(f_plot,X_mag_plot,color='black',linewidth=0.8, label = 'u')
         plt.plot(f_plot,Y_mag_plot,color='blue',linewidth=0.8, label = 'v')
         plt.plot(f_plot,Z_mag_plot,color='red',linewidth=0.8, label = 'w')
         plt.legend(loc='best')
 
         ax= plt.gca()	
-        ax.set_yscale('log')
-        ax.set_xlim([0,150])
-        # ax.set_ylim([-0.0001,0.001])	
+        # ax.set_yscale('log')
+        ax.set_xlim([0,50])
+        ax.set_ylim([-0.0001,1.5])	
         plt.title('FFT')	
         plt.grid()
-
+        plt.tight_layout()
+        # plt.show()
         plt.savefig(path+'/FFT_'+node_id+'.png')
 
 ###########################################################################
