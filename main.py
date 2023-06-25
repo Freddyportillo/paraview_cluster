@@ -4,6 +4,7 @@ import os
 import subprocess
 import json
 from structural_postproc import *
+from fluid_postproc import *
 from cfg_reader import *
 
 use_str = """Use: ./main.py [params]
@@ -84,6 +85,12 @@ def main():
     for i in range(len(nodes2read)):
         splt = nodes2read[i].split('=')
         id_nodes.append(splt[1])
+    probes2read = np.loadtxt(fname='probes2read.dat',dtype='str') #Read file of probes to treat
+    id_probes = []
+    for i in range(len(probes2read)):
+        splt = probes2read[i].split('=')
+        id_probes.append(splt[1])
+
     args = validateArgs()
     output_paths = getOutputPath(args['mfsim_cfg_path']['value'])
     checkResultPath(args['results_path']['value'], args['clear_results']['value'])
@@ -106,7 +113,13 @@ def main():
         for i in range(len(nodes2read)):
             node = getNode(output_path, nodes2read[i],id_nodes[i])
             print('node: ', node)
-            run_structural_postproc(output_path, result, node)
+            # run_structural_postproc(output_path, result, node)
+        counter = counter + 1
+        # print("\n\n\033[92m\t\tProcessed: \033[0m"+str(counter)+"/"+str(outputs)+" outputs\n")
+        for i in range(len(probes2read)):
+            probe = getProbe(output_path, probes2read[i],id_probes[i])
+            print('Probe: ', probe)
+            run_fluid_postproc(output_path, result, probe)
         counter = counter + 1
         print("\n\n\033[92m\t\tProcessed: \033[0m"+str(counter)+"/"+str(outputs)+" outputs\n")
 

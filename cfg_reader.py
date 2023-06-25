@@ -113,3 +113,20 @@ def getNode(output_path, node_config,id_node):
         files.sort(key=lambda f: int(re.sub('\D', '', f)), reverse=True)
         r = re.match(r'str_001_node(.*)\.dat', files[0])
         return { "file": files[0], "id": r.group(1) }
+    
+def getProbe(output_path, probe_config,id_probe):
+    out_path = output_path+'/probe_points'
+    if len(probe_config) != 0:
+        f_name = out_path+'/surf00001_sonda'+formatCounter(id_probe, 5)+'.dat'
+        if not os.path.isfile(f_name):
+            print("Can't find NODE file: "+f_name)
+            exit(1)
+        return { "file": 'surf00001_sonda'+formatCounter(id_probe, 5)+'.dat', "id": formatCounter(id_probe, 5) }
+    else:
+        files = [f for f in os.listdir(out_path) if re.match(r'surf00001_sonda.*\.dat', f)]
+        if len(files) == 0:
+            print("Can't find surf00001_sonda PROBE files on: "+out_path)
+            exit(1)
+        files.sort(key=lambda f: int(re.sub('\D', '', f)), reverse=True)
+        r = re.match(r'surf00001_sonda(.*)\.dat', files[0])
+        return { "file": files[0], "id": r.group(1) }

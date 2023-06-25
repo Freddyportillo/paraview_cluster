@@ -91,7 +91,7 @@ def run_structural_postproc(output_path, result_path, node):
     # PLOT X DISPLACMENT 
     fig = plt.figure(dpi=150)                       # resolução da imagem por ponto
     axes1 = fig.add_subplot(1, 1, 1)
-    axes1.set_ylabel(r'Deslocamento nodal na direção x ($ \times 10^{-3} $m)')
+    axes1.set_ylabel(r'Deslocamento nodal na direção x [$ \times 10^{-3} $m]')
     axes1.set_xlabel('t (s)')
     plt.plot(tf, xf[0:], '-',linewidth=0.8,color='black', label="Node: "+ node_id)
     plt.legend(loc='best')
@@ -103,7 +103,7 @@ def run_structural_postproc(output_path, result_path, node):
     # PLOT Y DISPLACEMENT
     fig = plt.figure(dpi=150)                       # resolução da imagem por ponto
     axes1 = fig.add_subplot(1, 1, 1)
-    axes1.set_ylabel(r'Deslocamento nodal na direção y ($ \times 10^{-3} $m)')
+    axes1.set_ylabel(r'Deslocamento nodal na direção y [$ \times 10^{-3} $m]')
     axes1.set_xlabel('t (s)')
     plt.plot(tf, yf[0:], '-',linewidth=0.8,color='black', label="Node: "+ node_id)
     plt.legend(loc='best')
@@ -115,7 +115,7 @@ def run_structural_postproc(output_path, result_path, node):
     # PLOT Z DISPLACEMENT
     fig = plt.figure(dpi=150)                       # resolução da imagem por ponto
     axes1 = fig.add_subplot(1, 1, 1)
-    axes1.set_ylabel(r'Deslocamento nodal na direção z ($ \times 10^{-3} $m)')
+    axes1.set_ylabel(r'Deslocamento nodal na direção z [$ \times 10^{-3} $m]')
     axes1.set_xlabel('t (s)')
     plt.plot(tf, zf[0:], '-',linewidth=0.8,color='black', label="Node: "+ node_id)
     plt.legend(loc='best')
@@ -127,7 +127,7 @@ def run_structural_postproc(output_path, result_path, node):
     # PLOT VELOCIY IN X DIRECTION
     fig = plt.figure(dpi=150)                       # resolução da imagem por ponto
     axes1 = fig.add_subplot(1, 1, 1)
-    axes1.set_ylabel('Velocidade nodal na direção x (m/s)')
+    axes1.set_ylabel('Velocidade nodal na direção x [m/s]')
     axes1.set_xlabel('t (s)')
     plt.plot(tf, uf[0:], '-',linewidth=0.8,color='black', label="Node: "+ node_id)
     plt.legend(loc='best')
@@ -139,7 +139,7 @@ def run_structural_postproc(output_path, result_path, node):
     # PLOT VELOCIY IN Y DIRECTION
     fig = plt.figure(dpi=150)                       # resolução da imagem por ponto
     axes1 = fig.add_subplot(1, 1, 1)
-    axes1.set_ylabel('Velocidade nodal na direção y (m/s)')
+    axes1.set_ylabel('Velocidade nodal na direção y [m/s]')
     axes1.set_xlabel('t (s)')
     plt.plot(tf, vf[0:], '-',linewidth=0.8,color='black', label="Node: "+ node_id)
     plt.legend(loc='best')
@@ -151,7 +151,7 @@ def run_structural_postproc(output_path, result_path, node):
     # PLOT VELOCIY IN Z DIRECTION
     fig = plt.figure(dpi=150)                       # resolução da imagem por ponto
     axes1 = fig.add_subplot(1, 1, 1)
-    axes1.set_ylabel('Velocidade nodal na direção z (m/s)')
+    axes1.set_ylabel('Velocidade nodal na direção z [m/s]')
     axes1.set_xlabel('t (s)')
     plt.plot(tf, wf[0:], '-',linewidth=0.8,color='black', label="Node: "+ node_id)
     plt.legend(loc='best')
@@ -202,8 +202,8 @@ def run_structural_postproc(output_path, result_path, node):
 
         plt.figure(dpi=150)
 
-        plt.xlabel('Frequency [Hz]', fontsize=19, fontproperties=font)
-        plt.ylabel(r'Amplitude ($ \times 10^{-3} $m)', fontsize=19, fontproperties=font)
+        plt.xlabel('Frequencia [Hz]', fontsize=19, fontproperties=font)
+        plt.ylabel(r'Amplitude [$ \times 10^{-3} $m]', fontsize=19, fontproperties=font)
         plt.plot(f_plot,X_mag_plot,color='black',linewidth=0.8, label = 'u')
         plt.plot(f_plot,Y_mag_plot,color='blue',linewidth=0.8, label = 'v')
         plt.plot(f_plot,Z_mag_plot,color='red',linewidth=0.8, label = 'w')
