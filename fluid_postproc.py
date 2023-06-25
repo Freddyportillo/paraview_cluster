@@ -93,6 +93,13 @@ def run_fluid_postproc(output_path, result_path, probe):
             ctf.append(ct[0,i])
             pf.append(p[0,i])
 
+    uf = np.array(uf)
+    vf = np.array(vf)
+    wf = np.array(wf)
+    tf = np.array(tf)
+    ctf = np.array(ctf)
+    pf = np.array(pf)
+    pf /= 1000
     #sp.plot_espectro(u,v,w,t,xc,ct)
     """
     Irá plotar respectivamente a velocidade média w, desvio padrão de w, 
@@ -103,14 +110,16 @@ def run_fluid_postproc(output_path, result_path, probe):
     axes1 = fig.add_subplot(1, 1, 1)
     axes1.set_ylabel('u(t) (m/s)')
     axes1.set_xlabel('t (s)')
-    plt.axhline(y=np.mean(uf), color='r', linestyle='--')
-    plt.legend(['mean'])
+    # plt.axhline(y=np.mean(uf), color='r', linestyle='--')
+    # plt.legend(['mean'])
+    media = np.mean(uf)
+    std=2*np.std(uf)
+    axes1.text(tf[len(tf)//2], np.min(uf)-0.05*np.min(uf), rf'média = ${media:4.2f} \pm {std:4.2f} \, m/s$')
     plt.plot(tf, uf, '-',linewidth=0.8,color='black', label="u velocity (m/s)")
     # plt.legend(loc='best')
-    # plt.xlim([0.2,0.8])
+    plt.ylim([np.min(uf)-0.1*abs(np.min(uf)),1.05*np.max(uf)])
     plt.grid()
     fig.tight_layout()
-    # plt.show()
     plt.savefig(path+'/u_vel_'+probe_id+'.png')
 
 
@@ -118,13 +127,13 @@ def run_fluid_postproc(output_path, result_path, probe):
     axes1 = fig.add_subplot(1, 1, 1)
     axes1.set_ylabel('v(t) (m/s)')
     axes1.set_xlabel('t (s)')
-    plt.axhline(y=np.mean(vf), color='r', linestyle='--')
-    plt.legend(['mean'])
+    media = np.mean(vf)
+    std=2*np.std(vf)
+    axes1.text(tf[len(tf)//2], np.min(vf)-0.05*np.min(vf), rf'média = ${media:4.2f} \pm {std:4.2f} \, m/s$')
+    plt.ylim([np.min(vf)-0.1*abs(np.min(vf)),1.05*np.max(vf)])
     plt.plot(tf, vf, '-',linewidth=0.8,color='black', label="v velocity (m/s)")
-    plt.xlim([0.2,0.8])
     plt.grid()
     fig.tight_layout()
-    # plt.show()
     plt.savefig(path+'/v_vel_'+probe_id+'.png')
 
 
@@ -132,10 +141,11 @@ def run_fluid_postproc(output_path, result_path, probe):
     axes1 = fig.add_subplot(1, 1, 1)
     axes1.set_ylabel('w(t) (m/s)')
     axes1.set_xlabel('t (s)')
-    plt.axhline(y=np.mean(wf), color='r', linestyle='--')
-    plt.legend(['mean'])
+    media = np.mean(wf)
+    std=2*np.std(wf)
+    axes1.text(tf[len(tf)//2], np.min(wf)-0.05*np.min(wf), rf'média = ${media:4.2f} \pm {std:4.2f} \, m/s$')
+    plt.ylim([np.min(wf)-0.1*abs(np.min(wf)),1.05*np.max(wf)])
     plt.plot(tf, wf, '-',linewidth=0.8,color='black', label="w velocity (m/s)")
-    plt.xlim([0.2,0.8])
     plt.grid()
     fig.tight_layout()
     # plt.show()
@@ -143,12 +153,13 @@ def run_fluid_postproc(output_path, result_path, probe):
 
     fig = plt.figure(dpi=150)                       # resolução da imagem por ponto
     axes1 = fig.add_subplot(1, 1, 1)
-    axes1.set_ylabel('Pressure (Pa)')
+    axes1.set_ylabel('Pressure (kPa)')
     axes1.set_xlabel('t (s)')
-    plt.axhline(y=np.mean(pf), color='r', linestyle='--')
-    plt.legend(['mean'])
-    plt.plot(tf, pf, '-',linewidth=0.8,color='black', label="Pressure (Pa)")
-    plt.xlim([0.2,0.8])
+    media = np.mean(pf)
+    std=2*np.std(pf)
+    axes1.text(tf[len(tf)//2], (np.min(pf)-0.005*np.min(pf)), rf'média = ${media:4.2f} \pm {std:4.2f} \, kPa$')
+    plt.ylim([(np.min(pf)-0.01*abs(np.min(pf))),(1.01*np.max(pf))])
+    plt.plot(tf, pf, '-',linewidth=0.8,color='black', label="Pressure (kPa)")
     plt.grid()
     fig.tight_layout()
     # plt.show()
@@ -194,8 +205,8 @@ def run_fluid_postproc(output_path, result_path, probe):
 
         for i in range(len(ept_kinetic)):
 
-            plt.xlabel('$\log{f}$ [Hz]', fontsize=19, fontproperties=font)
-            plt.ylabel('$\log{E(f)}$', fontsize=19, fontproperties=font)
+            plt.xlabel(r'$\log{f}$ [Hz]', fontsize=18, fontproperties=font)
+            plt.ylabel(r'$\log{E_{k}}$', fontsize=18, fontproperties=font)
             plt.loglog(frequency[i],kinetic_energy[i],color='red',linewidth=0.8)
             p_ret  = plt.loglog(xR,yR,'--',color='black',linewidth=1.5, label='$m = -5/3$')
 
@@ -205,6 +216,7 @@ def run_fluid_postproc(output_path, result_path, probe):
         ax.legend(title='Coeficiente Angular')
         plt.title('Densidade Espectral de Energia Cinética Turbulenta')	
         plt.grid()
+        plt.tight_layout()
         plt.savefig(path+'/ke_'+probe_id+'.png')
 
         #plt.savefig('Espectro.png', format='png', dpi=350)
