@@ -113,7 +113,7 @@ def main():
         for i in range(len(nodes2read)):
             node = getNode(output_path, nodes2read[i],id_nodes[i])
             print('node: ', node)
-            # run_structural_postproc(output_path, result, node)
+            run_structural_postproc(output_path, result, node)
         counter = counter + 1
         # print("\n\n\033[92m\t\tProcessed: \033[0m"+str(counter)+"/"+str(outputs)+" outputs\n")
         for i in range(len(probes2read)):

@@ -35,9 +35,10 @@ def run_fluid_postproc(output_path, result_path, probe):
     path = result_path+'/fluid_results/'+probe_id
     os.makedirs(path,exist_ok = True)
 
-    fn = np.loadtxt(fname=output_path+'/probe_points/'+probe['file'], skiprows=2)
+    fn = np.loadtxt(fname=output_path+'/probe_points/'+probe['file'], skiprows=200)
     # vj = 6
     # wj = 12  
+    # fn = np.where(fn<1E-12,0,fn)
     ctj = 0
     tj = 1
     i = 3
@@ -60,8 +61,8 @@ def run_fluid_postproc(output_path, result_path, probe):
     p = []
 
     xc = [0.173,0.118,0.0899]
-    min = 10000
-    max = 70000
+    lmin = 10000
+    lmax = 70000
     mod = 1
     uf = []
     vf = []
@@ -70,12 +71,12 @@ def run_fluid_postproc(output_path, result_path, probe):
     ctf = []
     pf = []
 
-    u.append(fn[min:max,uj])
-    v.append(fn[min:max,vj])
-    w.append(fn[min:max,wj])
-    t.append(fn[min:max,tj])
-    ct.append(fn[min:max,ctj])
-    p.append(fn[min:max,pj])
+    u.append(fn[10000:,uj])
+    v.append(fn[10000:,vj])
+    w.append(fn[10000:,wj])
+    t.append(fn[10000:,tj])
+    ct.append(fn[10000:,ctj])
+    p.append(fn[10000:,pj])
 
     u = np.array(u)
     v = np.array(v)
@@ -84,7 +85,13 @@ def run_fluid_postproc(output_path, result_path, probe):
     ct = np.array(ct)
     p = np.array(p)
 
-    for i in range(len(u[0])):
+    # u = np.where(u<1E-12,0,u)
+    # v = np.where(v<1E-12,0,v)
+    # w = np.where(w<1E-12,0,w)
+    # p = np.where(p<1E-12,0,p)
+
+
+    for i in range(len(u[0])): #(lmin,lmax): #(len(u[0])):
         if i%mod==0:
             uf.append(u[0,i])
             vf.append(v[0,i])
@@ -114,11 +121,11 @@ def run_fluid_postproc(output_path, result_path, probe):
     # plt.legend(['mean'])
     media = np.mean(uf)
     std=2*np.std(uf)
-    axes1.text(tf[len(tf)//2], np.min(uf)-0.05*np.min(uf), rf'média = ${media:4.2f} \pm {std:4.2f} \, m/s$')
+    axes1.text(tf[len(tf)//2], np.min(uf)-0.05*abs(np.min(uf)), rf'média = ${media:4.2f} \pm {std:4.2f} \, m/s$')
     plt.plot(tf, uf, '-',linewidth=0.8,color='black', label="u velocity (m/s)")
     # plt.legend(loc='best')
     plt.ylim([np.min(uf)-0.1*abs(np.min(uf)),1.05*np.max(uf)])
-    plt.grid()
+    plt.grid(linestyle='--', linewidth=0.3)
     fig.tight_layout()
     plt.savefig(path+'/u_vel_'+probe_id+'.png')
 
@@ -129,10 +136,11 @@ def run_fluid_postproc(output_path, result_path, probe):
     axes1.set_xlabel('t (s)')
     media = np.mean(vf)
     std=2*np.std(vf)
-    axes1.text(tf[len(tf)//2], np.min(vf)-0.05*np.min(vf), rf'média = ${media:4.2f} \pm {std:4.2f} \, m/s$')
+    axes1.text(tf[len(tf)//2], np.min(vf)-0.05*abs(np.min(vf)), rf'média = ${media:4.2f} \pm {std:4.2f} \, m/s$')
     plt.ylim([np.min(vf)-0.1*abs(np.min(vf)),1.05*np.max(vf)])
     plt.plot(tf, vf, '-',linewidth=0.8,color='black', label="v velocity (m/s)")
-    plt.grid()
+    plt.grid(linestyle='--', linewidth=0.3)
+
     fig.tight_layout()
     plt.savefig(path+'/v_vel_'+probe_id+'.png')
 
@@ -143,10 +151,11 @@ def run_fluid_postproc(output_path, result_path, probe):
     axes1.set_xlabel('t (s)')
     media = np.mean(wf)
     std=2*np.std(wf)
-    axes1.text(tf[len(tf)//2], np.min(wf)-0.05*np.min(wf), rf'média = ${media:4.2f} \pm {std:4.2f} \, m/s$')
+    axes1.text(tf[len(tf)//2], np.min(wf)-0.05*abs(np.min(wf)), rf'média = ${media:4.2f} \pm {std:4.2f} \, m/s$')
     plt.ylim([np.min(wf)-0.1*abs(np.min(wf)),1.05*np.max(wf)])
     plt.plot(tf, wf, '-',linewidth=0.8,color='black', label="w velocity (m/s)")
-    plt.grid()
+    plt.grid(linestyle='--', linewidth=0.3)
+
     fig.tight_layout()
     # plt.show()
     plt.savefig(path+'/w_vel_'+probe_id+'.png')
@@ -157,10 +166,11 @@ def run_fluid_postproc(output_path, result_path, probe):
     axes1.set_xlabel('t (s)')
     media = np.mean(pf)
     std=2*np.std(pf)
-    axes1.text(tf[len(tf)//2], (np.min(pf)-0.005*np.min(pf)), rf'média = ${media:4.2f} \pm {std:4.2f} \, kPa$')
+    axes1.text(tf[len(tf)//2], (np.min(pf)-0.005*abs(np.min(pf))), rf'média = ${media:4.2f} \pm {std:4.2f} \, kPa$')
     plt.ylim([(np.min(pf)-0.01*abs(np.min(pf))),(1.01*np.max(pf))])
     plt.plot(tf, pf, '-',linewidth=0.8,color='black', label="Pressure (kPa)")
-    plt.grid()
+    plt.grid(linestyle='--', linewidth=0.3)
+
     fig.tight_layout()
     # plt.show()
     plt.savefig(path+'/pressure_'+probe_id+'.png')
@@ -215,7 +225,8 @@ def run_fluid_postproc(output_path, result_path, probe):
         ax.set_ylim([0.00001,10000000])	
         ax.legend(title='Coeficiente Angular')
         plt.title('Densidade Espectral de Energia Cinética Turbulenta')	
-        plt.grid()
+        plt.grid(linestyle='--', linewidth=0.3)
+
         plt.tight_layout()
         plt.savefig(path+'/ke_'+probe_id+'.png')
 
