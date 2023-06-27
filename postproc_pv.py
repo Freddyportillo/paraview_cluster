@@ -172,7 +172,7 @@ def run_postproc(output_path, result_path, ct):
     machLUTColorBar.LabelColor = [0.0, 0.0, 0.0]
     machLUTColorBar.LabelFontSize = 18
     machLUTColorBar.ScalarBarLength = 0.32999999999999985
-    machLUTColorBar.RangeLabelFormat = '%-#6.1f'
+    machLUTColorBar.RangeLabelFormat = '%-#6.2f'
 
     # set color bar visibility
     machLUTColorBar.Visibility = 1
@@ -507,7 +507,7 @@ def run_postproc(output_path, result_path, ct):
     uLUTColorBar.LabelColor = [0.0, 0.0, 0.0]
     uLUTColorBar.LabelFontSize = 18
     uLUTColorBar.ScalarBarLength = 0.33000000000000035
-    uLUTColorBar.RangeLabelFormat = '%-#6.1f'
+    uLUTColorBar.RangeLabelFormat = '%-#6.2f'
 
     # set color bar visibility
     uLUTColorBar.Visibility = 1
@@ -674,7 +674,7 @@ def run_postproc(output_path, result_path, ct):
     vLUTColorBar.LabelColor = [0.0, 0.0, 0.0]
     vLUTColorBar.LabelFontSize = 18
     vLUTColorBar.ScalarBarLength = 0.3300000000000007
-    vLUTColorBar.RangeLabelFormat = '%-#6.1f'
+    vLUTColorBar.RangeLabelFormat = '%-#6.2f'
 
     # set color bar visibility
     vLUTColorBar.Visibility = 1
@@ -851,7 +851,7 @@ def run_postproc(output_path, result_path, ct):
     temperatureLUTColorBar.TitleFontSize = 20
     temperatureLUTColorBar.LabelColor = [0.0, 0.0, 0.0]
     temperatureLUTColorBar.LabelFontSize = 18
-    temperatureLUTColorBar.RangeLabelFormat = '%-#6.1f'
+    temperatureLUTColorBar.RangeLabelFormat = '%-#6.2f'
 
     # set color bar visibility
     temperatureLUTColorBar.Visibility = 1
@@ -1017,7 +1017,7 @@ def run_postproc(output_path, result_path, ct):
     vortmagLUTColorBar.LabelColor = [0.0, 0.0, 0.0]
     vortmagLUTColorBar.LabelFontSize = 18
     vortmagLUTColorBar.ScalarBarLength = 0.32999999999999996
-    vortmagLUTColorBar.RangeLabelFormat = '%-#6.1f'
+    vortmagLUTColorBar.RangeLabelFormat = '%-#6.2f'
 
     # set color bar visibility
     vortmagLUTColorBar.Visibility = 1
@@ -1169,7 +1169,7 @@ def run_postproc(output_path, result_path, ct):
     velocityLUTColorBar.LabelColor = [0.0, 0.0, 0.0]
     velocityLUTColorBar.LabelFontSize = 18
     velocityLUTColorBar.ScalarBarLength = 0.33000000000000035
-    velocityLUTColorBar.RangeLabelFormat = '%-#6.1f'
+    velocityLUTColorBar.RangeLabelFormat = '%-#6.2f'
 
     # set color bar visibility
     velocityLUTColorBar.Visibility = 1

@@ -88,20 +88,23 @@ def run_structural_postproc(output_path, result_path, node):
     xf *= 10000.0
     yf *= 10000.0
     zf *= 10000.0
+
     # PLOT X DISPLACMENT 
     fig = plt.figure(dpi=150)                       # resolução da imagem por ponto
     axes1 = fig.add_subplot(1, 1, 1)
     axes1.set_ylabel(r'Deslocamento nodal na direção $x$ [$ \times 10^{-3} $m]')
     axes1.set_xlabel('t (s)')
     media = np.mean(xf)
-    std=2*np.std(xf)
+    std=np.std(xf)
     axes1.text(tf[len(tf)//2], np.min(xf)-0.1*abs(np.min(xf)), rf'$\mu = {media:4.2f} \pm {std:4.2f} \, mm$')
     plt.ylim([np.min(xf)-0.2*abs(np.min(xf)),1.1*np.max(xf)])
+    plt.plot([tf[0],tf[len(tf)-1]],[media-std,media-std], '--', linewidth=0.6,color='red')
+    plt.plot([tf[0],tf[len(tf)-1]],[media+std,media+std], '--', linewidth=0.6,color='red')
+    plt.plot([tf[0],tf[len(tf)-1]],[media,media], '--', linewidth=0.6,color='brown', label='média')
     plt.plot(tf, xf, '-',linewidth=0.8,color='black', label="Node: "+ node_id)
     plt.legend(loc='upper left')
     plt.grid(linestyle='--', linewidth=0.3)
     fig.tight_layout()
-
     plt.savefig(path+'/u_disp_'+node_id+'.png')
 
     # PLOT Y DISPLACEMENT
@@ -110,9 +113,12 @@ def run_structural_postproc(output_path, result_path, node):
     axes1.set_ylabel(r'Deslocamento nodal na direção $y$ [$ \times 10^{-3} $m]')
     axes1.set_xlabel('t (s)')
     media = np.mean(yf)
-    std=2*np.std(yf)
+    std=np.std(yf)
     axes1.text(tf[len(tf)//2], np.min(yf)-0.1*abs(np.min(yf)), rf'$\mu = {media:4.2f} \pm {std:4.2f} \,  mm $')
     plt.ylim([np.min(yf)-0.2*abs(np.min(yf)),1.1*np.max(yf)])
+    plt.plot([tf[0],tf[len(tf)-1]],[media-std,media-std], '--', linewidth=0.6,color='red')
+    plt.plot([tf[0],tf[len(tf)-1]],[media+std,media+std], '--', linewidth=0.6,color='red')
+    plt.plot([tf[0],tf[len(tf)-1]],[media,media], '--', linewidth=0.6,color='brown', label='média')
     plt.plot(tf, yf, '-',linewidth=0.8,color='black', label="Node: "+ node_id)
     plt.legend(loc='upper left')
     plt.grid(linestyle='--', linewidth=0.3)
@@ -126,8 +132,11 @@ def run_structural_postproc(output_path, result_path, node):
     axes1.set_ylabel(r'Deslocamento nodal na direção $z$ [$ \times 10^{-3} $m]')
     axes1.set_xlabel('t (s)')
     media = np.mean(zf)
-    std=2*np.std(zf)
+    std=np.std(zf)
     axes1.text(tf[len(tf)//2], np.min(zf)-0.1*abs(np.min(zf)), rf'$\mu = {media:4.2f} \pm {std:4.2f} \, mm$')
+    plt.plot([tf[0],tf[len(tf)-1]],[media-std,media-std], '--', linewidth=0.6,color='red')
+    plt.plot([tf[0],tf[len(tf)-1]],[media+std,media+std], '--', linewidth=0.6,color='red')
+    plt.plot([tf[0],tf[len(tf)-1]],[media,media], '--', linewidth=0.6,color='brown', label='média')
     plt.ylim([np.min(zf)-0.2*abs(np.min(zf)),1.1*np.max(zf)])
     plt.plot(tf, zf, '-',linewidth=0.8,color='black', label="Node: "+ node_id)
     plt.legend(loc='upper left')
@@ -136,41 +145,61 @@ def run_structural_postproc(output_path, result_path, node):
 
     plt.savefig(path+'/w_disp_'+node_id+'.png')
 
-    # PLOT VELOCIY IN X DIRECTION
+    # PLOT DISPLACEMENT MAGNITUDE
     fig = plt.figure(dpi=150)                       # resolução da imagem por ponto
     axes1 = fig.add_subplot(1, 1, 1)
-    axes1.set_ylabel('Velocidade nodal na direção x [m/s]')
+    axes1.set_ylabel(r'Magnitude do deslocamento nodal [$ \times 10^{-3} $m]')
     axes1.set_xlabel('t (s)')
-    plt.plot(tf, uf, '-',linewidth=0.8,color='black', label="Node: "+ node_id)
-    plt.legend(loc='best')
+    disp_mag = np.sqrt(xf**2+yf**2+zf**2)
+    media = np.mean(disp_mag)
+    std=np.std(disp_mag)
+    axes1.text(tf[len(tf)//2], np.min(disp_mag)-0.1*abs(np.min(disp_mag)), rf'$\mu = {media:4.2f} \pm {std:4.2f} \, mm$')
+    plt.plot([tf[0],tf[len(tf)-1]],[media-std,media-std], '--', linewidth=0.6,color='red')
+    plt.plot([tf[0],tf[len(tf)-1]],[media+std,media+std], '--', linewidth=0.6,color='red')
+    plt.plot([tf[0],tf[len(tf)-1]],[media,media], '--', linewidth=0.6,color='brown', label='média')
+    plt.ylim([np.min(disp_mag)-0.2*abs(np.min(disp_mag)),1.1*np.max(disp_mag)])
+    plt.plot(tf, disp_mag, '-',linewidth=0.8,color='black', label="Node: "+ node_id)
+    plt.legend(loc='upper left')
     plt.grid(linestyle='--', linewidth=0.3)
     fig.tight_layout()
 
-    plt.savefig(path+'/xvel_disp_'+node_id+'.png')
+    plt.savefig(path+'/disp_mag_'+node_id+'.png')
 
-    # PLOT VELOCIY IN Y DIRECTION
-    fig = plt.figure(dpi=150)                       # resolução da imagem por ponto
-    axes1 = fig.add_subplot(1, 1, 1)
-    axes1.set_ylabel('Velocidade nodal na direção y [m/s]')
-    axes1.set_xlabel('t (s)')
-    plt.plot(tf, vf, '-',linewidth=0.8,color='black', label="Node: "+ node_id)
-    plt.legend(loc='best')
-    plt.grid(linestyle='--', linewidth=0.3)
-    fig.tight_layout()
+    # # PLOT VELOCIY IN X DIRECTION
+    # fig = plt.figure(dpi=150)                       # resolução da imagem por ponto
+    # axes1 = fig.add_subplot(1, 1, 1)
+    # axes1.set_ylabel('Velocidade nodal na direção x [m/s]')
+    # axes1.set_xlabel('t (s)')
+    # plt.plot(tf, uf, '-',linewidth=0.8,color='black', label="Node: "+ node_id)
+    # plt.legend(loc='best')
+    # plt.grid(linestyle='--', linewidth=0.3)
+    # fig.tight_layout()
 
-    plt.savefig(path+'/yvel_disp_'+node_id+'.png')
+    # plt.savefig(path+'/xvel_disp_'+node_id+'.png')
 
-    # PLOT VELOCIY IN Z DIRECTION
-    fig = plt.figure(dpi=150)                       # resolução da imagem por ponto
-    axes1 = fig.add_subplot(1, 1, 1)
-    axes1.set_ylabel('Velocidade nodal na direção z [m/s]')
-    axes1.set_xlabel('t (s)')
-    plt.plot(tf, wf, '-',linewidth=0.8,color='black', label="Node: "+ node_id)
-    plt.legend(loc='best')
-    plt.grid(linestyle='--', linewidth=0.3)
-    fig.tight_layout()
+    # # PLOT VELOCIY IN Y DIRECTION
+    # fig = plt.figure(dpi=150)                       # resolução da imagem por ponto
+    # axes1 = fig.add_subplot(1, 1, 1)
+    # axes1.set_ylabel('Velocidade nodal na direção y [m/s]')
+    # axes1.set_xlabel('t (s)')
+    # plt.plot(tf, vf, '-',linewidth=0.8,color='black', label="Node: "+ node_id)
+    # plt.legend(loc='best')
+    # plt.grid(linestyle='--', linewidth=0.3)
+    # fig.tight_layout()
 
-    plt.savefig(path+'/zvel_disp_'+node_id+'.png')
+    # plt.savefig(path+'/yvel_disp_'+node_id+'.png')
+
+    # # PLOT VELOCIY IN Z DIRECTION
+    # fig = plt.figure(dpi=150)                       # resolução da imagem por ponto
+    # axes1 = fig.add_subplot(1, 1, 1)
+    # axes1.set_ylabel('Velocidade nodal na direção z [m/s]')
+    # axes1.set_xlabel('t (s)')
+    # plt.plot(tf, wf, '-',linewidth=0.8,color='black', label="Node: "+ node_id)
+    # plt.legend(loc='best')
+    # plt.grid(linestyle='--', linewidth=0.3)
+    # fig.tight_layout()
+
+    # plt.savefig(path+'/zvel_disp_'+node_id+'.png')
 
     ###########################################################################
     ###########################################################################
@@ -216,9 +245,9 @@ def run_structural_postproc(output_path, result_path, node):
 
         plt.xlabel('Frequencia [Hz]', fontsize=19, fontproperties=font)
         plt.ylabel(r'Amplitude [$ \times 10^{-3} $m]', fontsize=19, fontproperties=font)
-        plt.plot(f_plot,X_mag_plot,color='black',linewidth=0.8, label = 'u')
-        plt.plot(f_plot,Y_mag_plot,color='blue',linewidth=0.8, label = 'v')
-        plt.plot(f_plot,Z_mag_plot,color='red',linewidth=0.8, label = 'w')
+        plt.plot(f_plot,X_mag_plot,color='black',linewidth=0.8, label = 'x')
+        plt.plot(f_plot,Y_mag_plot,color='blue',linewidth=0.8, label = 'y')
+        plt.plot(f_plot,Z_mag_plot,color='red',linewidth=0.8, label = 'z')
         plt.legend(loc='best')
 
         maxdeslocs = [np.max(X_mag_plot),np.max(Y_mag_plot),np.max(Z_mag_plot) ]
