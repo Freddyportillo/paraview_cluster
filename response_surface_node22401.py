@@ -16,18 +16,29 @@ y = np.array([0, 10, 20, 30])
 x = np.array([20, 40, 60, 80, 100])
 x, y = np.meshgrid(x, y)
 z = np.array([
-    [0.83, 1.16, 1.26, 1.45, 1.51],
-    [0.94, 1.27, 1.34, 1.51, 1.59],
-    [0.85, 1.32, 1.51, 1.74, 1.66],
-    [1.08, 1.70, 2.22, 2.43, 2.44]])
+    [0.79,1.10,1.21,1.38,1.45],
+    [0.88,1.21,1.30,1.44,1.54],
+    [0.83,1.28,1.45,1.74,1.64],
+    [1.07,1.72,2.31,2.52,2.54]])
 
+z_std = np.array([
+    [0.42,0.58,0.65,0.74,0.75],
+    [0.47,0.68,0.75,0.87,0.92],
+    [0.55,0.91,1.08,1.20,1.25],
+    [0.74,0.99,1.08,1.14,1.10]])
+
+zmin = z-z_std
+zmax = z+z_std
 
 # Plot the surface.
+
+surf = ax.plot_surface(x, y, zmin, linewidth=0, antialiased=False,alpha=0.1,color='gray')
+surf = ax.plot_surface(x, y, zmax, linewidth=0, antialiased=False,alpha=0.1,color='gray')
 surf = ax.plot_surface(x, y, z, cmap=cm.coolwarm,
                        linewidth=0, antialiased=False)
 
 # Customize the z axis.
-ax.set_zlim(0.0, 1.1*np.max(z))
+ax.set_zlim(0.0, 1.1*np.max(zmax))
 ax.zaxis.set_major_locator(LinearLocator(10))
 # A StrMethodFormatter is used automatically
 ax.zaxis.set_major_formatter('{x:.02f}')
@@ -105,6 +116,7 @@ ax.zaxis.set_major_formatter('{x:.02f}')
 # Add a color bar which maps values to colors.
 fig.colorbar(surf, shrink=0.5, aspect=10)
 ax.scatter(x,y,z,'o',color='black')
+ax.set_title(r'node: 22401')
 ax.set_ylabel(r'Válvula "Main" $(°)$')
 ax.set_xlabel(r'Válvula "Slide" $(\%)$')
 ax.set_zlabel(r'Deslocamento máximo $(mm)$')
