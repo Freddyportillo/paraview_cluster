@@ -16,20 +16,20 @@ y = np.array([0, 10, 20, 30, 40, 45])
 x = np.array([20, 40, 60, 80, 100])
 x, y = np.meshgrid(x, y)
 z = np.array([
-    [0.84,1.18,1.29,1.48,1.54],
-    [0.95,1.28,1.35,1.53,1.63],
-    [0.87,1.35,1.57,1.80,1.70],
-    [1.14,1.78,2.31,2.52,2.53],
-    [1.59,2.19,2.83,2.97,2.94],
-    [1.68,2.46,2.74,2.98,2.95]])
+    [0.86,1.20,1.32,1.50,1.57],
+    [0.96,1.32,1.14,1.57,1.67],
+    [0.90,1.39,1.57,1.89,1.79],
+    [1.16,1.88,2.31,2.74,2.77],
+    [1.70,2.38,3.07,3.23,3.20],
+    [1.79,2.64,2.97,3.23,3.20]])
 
 z_std = np.array([
-    [0.43,0.58,0.65,0.70,0.76],
-    [0.51,0.70,0.76,0.86,0.91],
-    [0.56,0.91,1.00,1.20,1.21],
-    [0.75,1.01,1.14,1.23,1.19],
-    [0.58,0.81,1.05,1.08,1.04],
-    [0.64,0.79,0.95,0.97,0.94]])
+    [0.45,0.63,0.70,0.80,0.82],
+    [0.51,0.74,0.82,0.95,1.00],
+    [0.60,1.00,1.18,1.31,1.36],
+    [0.81,1.08,1.08,1.21,1.20],
+    [0.59,0.82,1.05,1.05,1.05],
+    [0.65,0.79,0.95,0.97,0.95]])
 
 z -= z_std
 
@@ -77,7 +77,7 @@ executa o treino e teste n-vezes e calcule a estatistica
 """
 X_train, X_test, y_train, y_test = train_test_split(df[data_columns], df[target_column], random_state=0)
 
-degree = 4 # Grau do polinomio
+degree=3 # Grau do polinomio
 reg=make_pipeline(PolynomialFeatures(degree),LinearRegression())
 
 # Fit
@@ -128,23 +128,23 @@ min_main = x2[imin[0],jmin[0]]
 
 max_info = rf'máx. valor = {max_value:4.2f} mm   Slide: {max_slide} %   Main: {max_main:4.1f} °'
 min_info = rf'min. valor = {min_value:4.2f} mm   Slide: {min_slide} %   Main: {min_main:4.1f} °'
-
 # Customize the z axis.
 ax.set_zlim(0.0, 1.10*np.max(target_predito))
 ax.zaxis.set_major_locator(LinearLocator(10))
 # A StrMethodFormatter is used automatically
 ax.zaxis.set_major_formatter('{x:.02f}')
 
+# ax.text(x1[len(x1)//2],x2[len(x2)//2], np.min(target_predito)+0.1*abs(np.min(target_predito)), rf'$\máx = {max_value:4.2f} \, mm$')
+
 # Add a color bar which maps values to colors.
-fig.colorbar(surf, shrink=0.5, aspect=10, location='left')
+fig.colorbar(surf, shrink=0.5, aspect=10,location='left')
 ax.scatter(x,y,z,'o',color='black')
-ax.set_title(r'node: 24901')
+ax.set_title(r'node: 22601')
 ax.set_ylabel(r'Válvula "Main" $(°)$')
 ax.set_xlabel(r'Válvula "Slide" $(\%)$')
-ax.set_zlabel(r'Deslocamento mínimo $(mm)$')
+ax.set_zlabel(r'Deslocamento médio $(mm)$')
 plt.plot([],[],' ',label=max_info)
 plt.plot([],[],' ',label=min_info)
-ax.view_init(elev=23,azim=160,roll=0)
 plt.legend(loc='best')
 plt.grid(linestyle='--')
 plt.tight_layout()

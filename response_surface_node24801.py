@@ -77,7 +77,7 @@ executa o treino e teste n-vezes e calcule a estatistica
 """
 X_train, X_test, y_train, y_test = train_test_split(df[data_columns], df[target_column], random_state=0)
 
-degree=4 # Grau do polinomio
+degree = 4 # Grau do polinomio
 reg=make_pipeline(PolynomialFeatures(degree),LinearRegression())
 
 # Fit
@@ -113,6 +113,22 @@ fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
 surf = ax.plot_surface(x1, x2, target_predito, cmap=cm.coolwarm,
                         linewidth=0, antialiased=False,alpha=0.8)
 
+imax, jmax = np.where(target_predito == np.amax(target_predito))
+imin, jmin = np.where(target_predito == np.amin(target_predito))
+
+print('max: ',np.max(target_predito), 'Slide :', x1[imax[0],jmax[0]],'Main :', x2[imax[0],jmax[0]] )#, 'x2:',x2[np.argmax(target_predito)])
+
+max_value = np.max(target_predito)
+max_slide = x1[imax[0],jmax[0]]
+max_main = x2[imax[0],jmax[0]]
+
+min_value = np.min(target_predito)
+min_slide = x1[imin[0],jmin[0]]
+min_main = x2[imin[0],jmin[0]]
+
+max_info = rf'máx. valor = {max_value:4.2f} mm   Slide: {max_slide} %   Main: {max_main:4.1f} °'
+min_info = rf'min. valor = {min_value:4.2f} mm   Slide: {min_slide} %   Main: {min_main:4.1f} °'
+
 # Customize the z axis.
 ax.set_zlim(0.0, 1.10*np.max(target_predito))
 ax.zaxis.set_major_locator(LinearLocator(10))
@@ -125,7 +141,11 @@ ax.scatter(x,y,z,'o',color='black')
 ax.set_title(r'node: 24801')
 ax.set_ylabel(r'Válvula "Main" $(°)$')
 ax.set_xlabel(r'Válvula "Slide" $(\%)$')
-ax.set_zlabel(r'Deslocamento mínimo $(mm)$')
+ax.set_zlabel(r'Deslocamento médio$(mm)$')
+plt.plot([],[],' ',label=max_info)
+plt.plot([],[],' ',label=min_info)
+ax.view_init(elev=23,azim=160,roll=0)
+plt.legend(loc='best')
 plt.grid(linestyle='--')
 plt.tight_layout()
 

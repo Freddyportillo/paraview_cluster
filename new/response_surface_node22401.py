@@ -12,26 +12,20 @@ from sklearn.linear_model import LinearRegression
 fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
 
 # Make data.
-y = np.array([0, 10, 20, 30, 40, 45])
+y = np.array([0, 10, 20, 30])
 x = np.array([20, 40, 60, 80, 100])
 x, y = np.meshgrid(x, y)
 z = np.array([
-    [0.84,1.18,1.29,1.48,1.54],
-    [0.95,1.28,1.35,1.53,1.63],
-    [0.87,1.35,1.57,1.80,1.70],
-    [1.14,1.78,2.31,2.52,2.53],
-    [1.59,2.19,2.83,2.97,2.94],
-    [1.68,2.46,2.74,2.98,2.95]])
+    [0.79,1.10,1.21,1.38,1.45],
+    [0.88,1.21,1.30,1.44,1.54],
+    [0.83,1.28,1.45,1.74,1.64],
+    [1.07,1.72,2.31,2.52,2.54]])
 
 z_std = np.array([
-    [0.43,0.58,0.65,0.70,0.76],
-    [0.51,0.70,0.76,0.86,0.91],
-    [0.56,0.91,1.00,1.20,1.21],
-    [0.75,1.01,1.14,1.23,1.19],
-    [0.58,0.81,1.05,1.08,1.04],
-    [0.64,0.79,0.95,0.97,0.94]])
-
-z -= z_std
+    [0.42,0.58,0.65,0.74,0.75],
+    [0.47,0.68,0.75,0.87,0.92],
+    [0.55,0.91,1.08,1.20,1.25],
+    [0.74,0.99,1.08,1.14,1.10]])
 
 zmin = z-z_std
 zmax = z+z_std
@@ -77,7 +71,7 @@ executa o treino e teste n-vezes e calcule a estatistica
 """
 X_train, X_test, y_train, y_test = train_test_split(df[data_columns], df[target_column], random_state=0)
 
-degree = 4 # Grau do polinomio
+degree=3 # Grau do polinomio
 reg=make_pipeline(PolynomialFeatures(degree),LinearRegression())
 
 # Fit
@@ -86,7 +80,7 @@ y_pred = reg.predict(X_test)
 
 y_pred, y_test
 
-yy = np.arange(0,46)
+yy = np.arange(0,31)
 xx = np.arange(20,101)
 xx, yy = np.meshgrid(xx, yy)
 
@@ -113,22 +107,6 @@ fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
 surf = ax.plot_surface(x1, x2, target_predito, cmap=cm.coolwarm,
                        linewidth=0, antialiased=False,alpha=0.8)
 
-imax, jmax = np.where(target_predito == np.amax(target_predito))
-imin, jmin = np.where(target_predito == np.amin(target_predito))
-
-print('max: ',np.max(target_predito), 'Slide :', x1[imax[0],jmax[0]],'Main :', x2[imax[0],jmax[0]] )#, 'x2:',x2[np.argmax(target_predito)])
-
-max_value = np.max(target_predito)
-max_slide = x1[imax[0],jmax[0]]
-max_main = x2[imax[0],jmax[0]]
-
-min_value = np.min(target_predito)
-min_slide = x1[imin[0],jmin[0]]
-min_main = x2[imin[0],jmin[0]]
-
-max_info = rf'máx. valor = {max_value:4.2f} mm   Slide: {max_slide} %   Main: {max_main:4.1f} °'
-min_info = rf'min. valor = {min_value:4.2f} mm   Slide: {min_slide} %   Main: {min_main:4.1f} °'
-
 # Customize the z axis.
 ax.set_zlim(0.0, 1.10*np.max(target_predito))
 ax.zaxis.set_major_locator(LinearLocator(10))
@@ -136,16 +114,12 @@ ax.zaxis.set_major_locator(LinearLocator(10))
 ax.zaxis.set_major_formatter('{x:.02f}')
 
 # Add a color bar which maps values to colors.
-fig.colorbar(surf, shrink=0.5, aspect=10, location='left')
+fig.colorbar(surf, shrink=0.5, aspect=10)
 ax.scatter(x,y,z,'o',color='black')
-ax.set_title(r'node: 24901')
+ax.set_title(r'node: 22401')
 ax.set_ylabel(r'Válvula "Main" $(°)$')
 ax.set_xlabel(r'Válvula "Slide" $(\%)$')
-ax.set_zlabel(r'Deslocamento mínimo $(mm)$')
-plt.plot([],[],' ',label=max_info)
-plt.plot([],[],' ',label=min_info)
-ax.view_init(elev=23,azim=160,roll=0)
-plt.legend(loc='best')
+ax.set_zlabel(r'Deslocamento máximo $(mm)$')
 plt.grid(linestyle='--')
 plt.tight_layout()
 
