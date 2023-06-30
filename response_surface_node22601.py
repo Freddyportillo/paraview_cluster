@@ -35,7 +35,7 @@ z_std = np.array([
     [0.59,0.82,1.05,1.05,1.05],
     [0.65,0.79,0.95,0.97,0.95]])
 
-# z += z_std
+z -= z_std
 
 zmin = z-z_std
 zmax = z+z_std
@@ -81,7 +81,10 @@ executa o treino e teste n-vezes e calcule a estatistica
 """
 X_train, X_test, y_train, y_test = train_test_split(df[data_columns], df[target_column], random_state=0)
 
-degree = 4 # Grau do polinomio
+
+degree = 3 # Grau do polinomio
+
+
 reg=make_pipeline(PolynomialFeatures(degree),LinearRegression())
 
 # Fit
@@ -145,6 +148,7 @@ r2 = r2_score(y_test, y_pred)
 print("R²:", r2)
 
 r2_info = rf'R² = {r2:4.2f}'
+
 # Customize the z axis.
 ax.set_zlim(0.0, 1.10*np.max(target_predito))
 ax.zaxis.set_major_locator(LinearLocator(10))
@@ -159,7 +163,7 @@ ax.scatter(x,y,z,'o',color='black')
 ax.set_title(r'node: 22601')
 ax.set_ylabel(r'Válvula "Main" $(°)$')
 ax.set_xlabel(r'Válvula "Slide" $(\%)$')
-ax.set_zlabel(r'Deslocamento médio $(mm)$')
+ax.set_zlabel(r'Deslocamento mínimo $(mm)$')
 plt.plot([],[],' ',label=max_info)
 plt.plot([],[],' ',label=min_info)
 plt.plot([],[],' ',label=rmse_info+'  '+r2_info)
@@ -168,5 +172,8 @@ plt.legend(loc='best')
 plt.grid(linestyle='--')
 plt.tight_layout()
 
+path = '/media/alejandro/Seagate Expansion Drive/Backup_Freddy/UFCC_project/FTP_final/data_analysis/surface_response'
+output = path+'/surface_response_node22601_min.png'
+plt.savefig(output)
 
 plt.show()
