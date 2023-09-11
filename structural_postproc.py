@@ -245,16 +245,16 @@ def run_structural_postproc(output_path, result_path, node):
 
         plt.xlabel('Frequencia [Hz]', fontsize=19, fontproperties=font)
         plt.ylabel(r'Amplitude [$ \times 10^{-3} $m]', fontsize=19, fontproperties=font)
-        plt.plot(f_plot,X_mag_plot,color='black',linewidth=0.8, label = 'x')
-        plt.plot(f_plot,Y_mag_plot,color='blue',linewidth=0.8, label = 'y')
-        plt.plot(f_plot,Z_mag_plot,color='red',linewidth=0.8, label = 'z')
+        plt.plot(f_plot,X_mag_plot,color='black',linewidth=0.9, label = 'x')
+        plt.plot(f_plot,Y_mag_plot,color='blue',linewidth=0.9, label = 'y')
+        plt.plot(f_plot,Z_mag_plot,color='red',linewidth=0.9, label = 'z')
         plt.legend(loc='best')
 
         maxdeslocs = [np.max(X_mag_plot),np.max(Y_mag_plot),np.max(Z_mag_plot) ]
         ax= plt.gca()	
         # ax.set_yscale('log')
-        ax.set_xlim([0,50])
-        ax.set_ylim([-0.0001,1.2*np.max(maxdeslocs)])	
+        ax.set_xlim([0,60])
+        ax.set_ylim([-0.05,1.2*np.max(maxdeslocs)])	
         plt.title('FFT')	
         plt.grid(linestyle='--', linewidth=0.3)
         plt.tight_layout()

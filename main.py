@@ -109,11 +109,11 @@ def main():
         for ct in cts:
             print("\n\033[94m CT: \033[0m"+ct['id'])
             result_ct = generateCtResultDir(result,ct['id'])
-            subprocess.run(['./postproc_pv.py', output_path, result_ct, json.dumps(ct)])
+            # subprocess.run(['./postproc_pv.py', output_path, result_ct, json.dumps(ct)])
         for i in range(len(nodes2read)):
             node = getNode(output_path, nodes2read[i],id_nodes[i])
             print('node: ', node)
-            run_structural_postproc(output_path, result, node)
+            # run_structural_postproc(output_path, result, node)
         counter = counter + 1
         # print("\n\n\033[92m\t\tProcessed: \033[0m"+str(counter)+"/"+str(outputs)+" outputs\n")
         for i in range(len(probes2read)):

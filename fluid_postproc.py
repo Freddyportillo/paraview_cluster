@@ -171,34 +171,35 @@ def run_fluid_postproc(output_path, result_path, probe):
 
     fig = plt.figure(dpi=150)                       # resolução da imagem por ponto
     axes1 = fig.add_subplot(1, 1, 1)
-    axes1.set_ylabel('Pressure (kPa)')
-    axes1.set_xlabel('t (s)')
+    axes1.set_ylabel('Pressure [kPa]')
+    axes1.set_xlabel('t [s]')
     media = np.mean(pf)
     std=np.std(pf)
-    axes1.text(tf[len(tf)//2], (np.min(pf)-0.005*abs(np.min(pf))), rf'média = ${media:4.2f} \pm {std:4.2f} \, kPa$')
+    axes1.text(tf[len(tf)//2], (np.min(pf)-0.005*abs(np.min(pf))), rf'$\mu = {media:4.2f} \pm {std:4.2f} \, kPa$')
     plt.ylim([(np.min(pf)-0.01*abs(np.min(pf))),(1.01*np.max(pf))])
-    plt.plot(tf, pf, '-',linewidth=0.8,color='black',alpha=0.6, label="Pressure (kPa)")
+    plt.plot(tf, pf, '-',linewidth=0.8,color='black',alpha=0.6, label="Pressure [kPa]")
     plt.plot([tf[0],tf[len(tf)-1]],[media-std,media-std], '--', linewidth=0.6,color='blue')
     plt.plot([tf[0],tf[len(tf)-1]],[media+std,media+std], '--', linewidth=0.6,color='blue')
-    plt.plot([tf[0],tf[len(tf)-1]],[media,media], '--', linewidth=0.6,color='purple', label='média')
+    plt.plot([tf[0],tf[len(tf)-1]],[media,media], '--', linewidth=0.6,color='purple', label='mean')
     plt.legend(loc='upper left')
     plt.grid(linestyle='--', linewidth=0.3)
     fig.tight_layout()
     plt.savefig(path+'/pressure_'+probe_id+'.png')
 
-        # PLOT DISPLACEMENT MAGNITUDE
+        # PLOT VELOCITY MAGNITUDE
     fig = plt.figure(dpi=150)                       # resolução da imagem por ponto
     axes1 = fig.add_subplot(1, 1, 1)
-    axes1.set_ylabel(r'Magnitude da velocidade $[ m/s ]$')
-    axes1.set_xlabel('t (s)')
+    # axes1.set_ylabel(r'Magnitude da velocidade $[ m/s ]$')
+    axes1.set_ylabel(r'Velocity magnitude $[ m/s ]$')
+    axes1.set_xlabel('t [s]')
     vel_mag = np.sqrt(uf**2+vf**2+wf**2)
     media = np.mean(vel_mag)
     std=np.std(vel_mag)
     axes1.text(tf[len(tf)//2], np.min(vel_mag)-0.1*abs(np.min(vel_mag)), rf'$\mu = {media:4.2f} \pm {std:4.2f} \, m/s$')
     plt.plot([tf[0],tf[len(tf)-1]],[media-std,media-std], '--', linewidth=0.6,color='red')
     plt.plot([tf[0],tf[len(tf)-1]],[media+std,media+std], '--', linewidth=0.6,color='red')
-    plt.plot([tf[0],tf[len(tf)-1]],[media,media], '--', linewidth=0.6,color='brown', label='média')
-    plt.ylim([np.min(vel_mag)-0.2*abs(np.min(vel_mag)),1.1*np.max(vel_mag)])
+    plt.plot([tf[0],tf[len(tf)-1]],[media,media], '--', linewidth=0.6,color='brown', label='mean')
+    plt.ylim([np.min(vel_mag)-0.5*abs(np.min(vel_mag)),1.1*np.max(vel_mag)])
     plt.plot(tf, vel_mag, '-',linewidth=0.8,color='black',alpha=0.6, label="Probe: "+ probe_id)
     plt.legend(loc='upper left')
     plt.grid(linestyle='--', linewidth=0.3)
@@ -221,7 +222,7 @@ def run_fluid_postproc(output_path, result_path, probe):
         x1R = 1
         x2R = 10000
         xR = np.arange(x1R,x2R,10)
-        yR = np.exp((-5.0/3.0)*np.log(xR))*1000000000
+        yR = np.exp((-5.0/3.0)*np.log(xR))*10000000000
 
         dir = [""]
 
@@ -249,13 +250,15 @@ def run_fluid_postproc(output_path, result_path, probe):
             plt.xlabel(r'$\log{f}$ [Hz]', fontsize=18, fontproperties=font)
             plt.ylabel(r'$\log{E_{k}}$', fontsize=18, fontproperties=font)
             plt.loglog(frequency[i],kinetic_energy[i],color='red',linewidth=0.8)
-            p_ret  = plt.loglog(xR,yR,'--',color='black',alpha=0.6,linewidth=1.5, label='$m = -5/3$')
+            p_ret  = plt.loglog(xR,yR,'--',color='black',alpha=0.6,linewidth=1.5, label=rf'$m = -5/3$')
 
         ax= plt.gca()	
-        ax.set_xlim([1,10000])
-        ax.set_ylim([0.00001,10000000])	
-        ax.legend(title='Coeficiente Angular')
-        plt.title('Densidade Espectral de Energia Cinética Turbulenta')	
+        ax.set_xlim([1,1000])
+        ax.set_ylim([0.00001,100000000])	
+        # ax.legend(title='Coeficiente Angular')
+        ax.legend(title='Slope')
+        # plt.title('Densidade Espectral de Energia Cinética Turbulenta')	
+        plt.title('Turbulent Kinetic Energy Spectrum')	
         plt.grid(linestyle='--', linewidth=0.3)
 
         plt.tight_layout()
